@@ -6,6 +6,7 @@ use DI\ContainerBuilder;
 use TheApp\Factories\AppFactory;
 
 require APP_ROOT . '/vendor/autoload.php';
+
 $container = (new ContainerBuilder())
     ->addDefinitions(require APP_ROOT . '/app/Config/dependencies.php')
     ->build();

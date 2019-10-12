@@ -4,6 +4,7 @@ namespace TheProject\Routes;
 
 use TheApp\Components\Router;
 use TheApp\Interfaces\RouteConfiguratorInterface;
+use TheProject\Handlers\Demo\DemoHandler;
 
 /**
  * Class DefaultRoutes
@@ -19,8 +20,6 @@ class DefaultRoutes implements RouteConfiguratorInterface
      */
     public function configureRoutes(Router $router)
     {
-        $router->any('/', function () {
-            return 'Hello darkness my old friend';
-        });
+        $router->any('/', DemoHandler::class);
     }
 }
