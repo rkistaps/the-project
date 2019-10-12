@@ -1,0 +1,19 @@
+{
+    "name": "rkistaps/the-project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kristaps taube",
+            "email": "kristaps.taube@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TheProject\\": "app/"
+        }
+    },
+    "require": {
+        "rkistaps/the-app": "^0.1.0"
+    }
+}
