@@ -3,30 +3,28 @@
 namespace TheProject\Handlers\Demo;
 
 use League\Plates\Engine;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use TheApp\Components\Builders\ResponseBuilder;
 
 /**
  * Class DemoHandler
  * @package TheProject\Handlers\Demo
  */
-class DemoHandler
+class DemoHandler implements RequestHandlerInterface
 {
-    /** @var Engine */
-    private $template;
+    private Engine $template;
+    private ResponseBuilder $responseBuilder;
 
-    /**
-     * DemoHandler constructor.
-     * @param Engine $template
-     */
-    public function __construct(Engine $template)
+    public function __construct(Engine $template, ResponseBuilder $responseBuilder)
     {
         $this->template = $template;
+        $this->responseBuilder = $responseBuilder;
     }
 
-    /**
-     * @return mixed
-     */
-    public function __invoke()
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return $this->template->render('Demo/index');
+        return $this->responseBuilder->withContent($this->template->render('Demo/index'))->build();
     }
 }
