@@ -1,13 +1,13 @@
 <?php
 
-use TheProject\Routes\DefaultRoutes;
+use TheProject\Config\RouteConfigurators\DemoRouteConfigurator;
 
 return [
     'templatePath' => APP_ROOT . '/app/Templates',
     'router' => [
         'basePath' => '',
-        'routes' => [
-            DefaultRoutes::class,
+        'configurators' => [
+            DemoRouteConfigurator::class,
         ],
     ],
 ];

@@ -14,7 +14,7 @@
         }
     },
     "require": {
-        "rkistaps/the-app": "^0.1.0",
+        "rkistaps/the-app": "dev-router-refactoring",
         "league/plates": "^3.3"
     }
 }
