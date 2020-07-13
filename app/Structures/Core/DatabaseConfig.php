@@ -10,7 +10,7 @@ class DatabaseConfig
 
     public string $host = '';
     public string $port = '';
-    public string $database = '';
+    public string $name = '';
     public string $username = '';
     public string $password = '';
 }

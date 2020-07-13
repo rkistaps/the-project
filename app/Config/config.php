@@ -5,11 +5,11 @@ use TheProject\Config\RouteConfigurators\DemoRouteConfigurator;
 return [
     'templatePath' => APP_ROOT . '/app/Templates',
     'database' => [
-        'host' => '',
+        'host' => 'db',
         'port' => '',
-        'name' => '',
-        'username' => '',
-        'password' => '',
+        'name' => 'theapp',
+        'username' => 'theapp',
+        'password' => 'theapp',
     ],
     'router' => [
         'basePath' => '',

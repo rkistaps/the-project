@@ -24,15 +24,15 @@ return [
     },
     Spiral\Database\Database::class => function (DatabaseConfig $databaseConfig) {
         $driver = new MySQLDriver([
-            'connection' => 'mysql:host=' . $databaseConfig->host . ';dbname=' . $databaseConfig->database,
+            'connection' => 'mysql:host=' . $databaseConfig->host . ';dbname=' . $databaseConfig->name,
             'username' => $databaseConfig->username,
             'password' => $databaseConfig->password,
         ]);
 
-        return new Spiral\Database\Database(
-            $databaseConfig->database,
+        return (new Spiral\Database\Database(
+            $databaseConfig->name,
             '',
             $driver
-        );
+        ));
     },
 ];

@@ -16,13 +16,10 @@ class DemoDbHandler implements RequestHandlerInterface
         $this->database = $database;
     }
 
-
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
 
         $result = $this->database->select('id')->from('mytable')->getColumns();
         dd($result);
-
-
     }
 }
