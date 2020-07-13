@@ -6,6 +6,7 @@ use Psr\Http\Message\RequestInterface;
 use TheApp\Components\Builders\ResponseBuilder;
 use TheApp\Components\Router;
 use TheApp\Interfaces\RouterConfiguratorInterface;
+use TheProject\Handlers\Demo\DemoDbHandler;
 use TheProject\Handlers\Demo\DemoHandler;
 use TheProject\Middlewares\RandomAccessMiddleware;
 
@@ -27,5 +28,7 @@ class DemoRouteConfigurator implements RouterConfiguratorInterface
         // test random access middleware
         $router->get(self::BASE_PATH . '/random-access', DemoHandler::class)
             ->withMiddleware(RandomAccessMiddleware::class);
+
+        $router->get(self::BASE_PATH . '/database', DemoDbHandler::class);
     }
 }
