@@ -7,7 +7,7 @@ use TheApp\Factories\ConfigFactory;
 use TheApp\Factories\RouterFactory;
 use TheApp\Interfaces\ConfigInterface;
 use TheProject\Factories\TemplateEngineFactory;
-use TheProject\Structures\Core\DatabaseConfig;
+use TheProject\Core\Structures\DatabaseConfig;
 
 return [
     ConfigInterface::class => function (ConfigFactory $configFactory) {
