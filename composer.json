@@ -17,6 +17,6 @@
         "league/plates": "^3.3",
         "rkistaps/the-app": "^0.2.0",
         "spiral/database": "^2.7",
-        "spiral/migrations": "^2.1"
+        "davedevelopment/phpmig": "^1.7"
     }
 }

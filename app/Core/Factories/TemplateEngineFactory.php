@@ -12,23 +12,14 @@ use TheApp\Interfaces\ConfigInterface;
  */
 class TemplateEngineFactory
 {
-    /** @var ContainerInterface */
-    private $container;
+    private ContainerInterface $container;
 
-    /**
-     * TemplateEngineFactory constructor.
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    /**
-     * @param ConfigInterface $config
-     * @return Engine
-     */
-    public function build(ConfigInterface $config)
+    public function build(ConfigInterface $config): Engine
     {
         $engine = new Engine($config->get('templatePath') ?? '/');
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace TheProject\Structures\Core;
+namespace TheProject\Core\Structures;
 
 use TheProject\Helpers\Traits\FromArrayTrait;
 

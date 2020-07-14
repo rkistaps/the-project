@@ -2,21 +2,17 @@
 
 define('APP_ROOT', realpath(__DIR__ . '/..'));
 
-use DI\ContainerBuilder;
 use Jasny\HttpMessage\Emitter;
-use Jasny\HttpMessage\ServerRequest;
 use TheApp\Factories\AppFactory;
+use TheProject\Core\Factories\ContainerFactory;
+use TheProject\Core\Factories\ServerRequestFactory;
 
 require APP_ROOT . '/vendor/autoload.php';
 
-$container = (new ContainerBuilder())
-    ->addDefinitions(require APP_ROOT . '/app/Config/dependencies.php')
-    ->build();
-
+$container = ContainerFactory::build();
 $app = AppFactory::fromContainer($container);
 
-$request = (new ServerRequest())->withGlobalEnvironment();
-
+$request = ServerRequestFactory::buildWithGlobals();
 $response = $app->run($request);
 
 $emitter = new Emitter();
