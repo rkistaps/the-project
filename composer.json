@@ -15,7 +15,7 @@
     },
     "require": {
         "league/plates": "^3.3",
-        "rkistaps/the-app": "^0.2.0",
+        "rkistaps/the-app": "dev-console-app",
         "spiral/database": "^2.7",
         "davedevelopment/phpmig": "^1.7"
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "620d8e1ea762be560955fb640f137f9b",
+    "content-hash": "8176c63f14a4648f761a9d6474edb45d",
     "packages": [
         {
             "name": "davedevelopment/phpmig",
@@ -781,16 +781,16 @@
         },
         {
             "name": "rkistaps/the-app",
-            "version": "v0.2",
+            "version": "dev-console-app",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rkistaps/the-app.git",
-                "reference": "31e639abd75e7ca879af540d88eaaff2317bc03e"
+                "reference": "3b8c78308362f3c041b10473a95f0b0d43ce8293"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/31e639abd75e7ca879af540d88eaaff2317bc03e",
-                "reference": "31e639abd75e7ca879af540d88eaaff2317bc03e",
+                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/3b8c78308362f3c041b10473a95f0b0d43ce8293",
+                "reference": "3b8c78308362f3c041b10473a95f0b0d43ce8293",
                 "shasum": ""
             },
             "require": {
@@ -802,6 +802,7 @@
                 "psr/http-server-handler": "^1.0",
                 "psr/http-server-middleware": "^1.0",
                 "rappasoft/laravel-helpers": "^1.0",
+                "samejack/php-argv": "^1.0",
                 "tightenco/collect": "^5.5"
             },
             "type": "library",
@@ -817,7 +818,55 @@
                     "email": "kristaps.taube@gmail.com"
                 }
             ],
-            "time": "2020-07-12T14:45:48+00:00"
+            "time": "2020-07-15T07:24:17+00:00"
+        },
+        {
+            "name": "samejack/php-argv",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/samejack/php-argv.git",
+                "reference": "d23fccbb837bcc9560435ba090411bb95ad5b6e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/samejack/php-argv/zipball/d23fccbb837bcc9560435ba090411bb95ad5b6e4",
+                "reference": "d23fccbb837bcc9560435ba090411bb95ad5b6e4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "*@stable",
+                "phpunit/phpunit": "~4.8|~5.7",
+                "squizlabs/php_codesniffer": "*@stable"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "samejack\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "SJ",
+                    "email": "sj@toright.com",
+                    "homepage": "http://blog.toright.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP CLI arguments parse.",
+            "homepage": "https://github.com/samejack/php-argv",
+            "keywords": [
+                "cli",
+                "php"
+            ],
+            "time": "2020-03-30T08:46:31+00:00"
         },
         {
             "name": "spiral/core",
@@ -2097,7 +2146,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "rkistaps/the-app": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
