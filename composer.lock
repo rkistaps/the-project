@@ -785,12 +785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rkistaps/the-app.git",
-                "reference": "44e376a02407247273eda7ba446a86ba07dfe4bb"
+                "reference": "77f4eea9091918aadf0ef4468aa93d28188bd7b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/44e376a02407247273eda7ba446a86ba07dfe4bb",
-                "reference": "44e376a02407247273eda7ba446a86ba07dfe4bb",
+                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/77f4eea9091918aadf0ef4468aa93d28188bd7b8",
+                "reference": "77f4eea9091918aadf0ef4468aa93d28188bd7b8",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                     "email": "kristaps.taube@gmail.com"
                 }
             ],
-            "time": "2020-07-16T15:21:01+00:00"
+            "time": "2020-07-16T15:47:48+00:00"
         },
         {
             "name": "samejack/php-argv",
