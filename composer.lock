@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "287b0196b00c43857df1397a9d41c6ce",
+    "content-hash": "4cd7373e47683c4e930b6e72a1c390a2",
     "packages": [
         {
             "name": "davedevelopment/phpmig",
@@ -781,16 +781,16 @@
         },
         {
             "name": "rkistaps/the-app",
-            "version": "dev-console-app",
+            "version": "v0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rkistaps/the-app.git",
-                "reference": "77f4eea9091918aadf0ef4468aa93d28188bd7b8"
+                "reference": "31e639abd75e7ca879af540d88eaaff2317bc03e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/77f4eea9091918aadf0ef4468aa93d28188bd7b8",
-                "reference": "77f4eea9091918aadf0ef4468aa93d28188bd7b8",
+                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/31e639abd75e7ca879af540d88eaaff2317bc03e",
+                "reference": "31e639abd75e7ca879af540d88eaaff2317bc03e",
                 "shasum": ""
             },
             "require": {
@@ -802,7 +802,6 @@
                 "psr/http-server-handler": "^1.0",
                 "psr/http-server-middleware": "^1.0",
                 "rappasoft/laravel-helpers": "^1.0",
-                "samejack/php-argv": "dev-master",
                 "tightenco/collect": "^5.5"
             },
             "type": "library",
@@ -818,7 +817,7 @@
                     "email": "kristaps.taube@gmail.com"
                 }
             ],
-            "time": "2020-07-16T15:47:48+00:00"
+            "time": "2020-07-12T14:45:48+00:00"
         },
         {
             "name": "samejack/php-argv",
@@ -2147,7 +2146,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "rkistaps/the-app": 20,
         "samejack/php-argv": 20
     },
     "prefer-stable": false,

@@ -1,23 +1,23 @@
 {
-    "name": "rkistaps/the-project",
-    "type": "project",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "kristaps taube",
-            "email": "kristaps.taube@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "TheProject\\": "app/"
-        }
-    },
-    "require": {
-        "league/plates": "^3.3",
-        "rkistaps/the-app": "dev-console-app",
-        "spiral/database": "^2.7",
-        "davedevelopment/phpmig": "^1.7",
-        "samejack/php-argv": "dev-master"
+  "name": "rkistaps/the-project",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "kristaps taube",
+      "email": "kristaps.taube@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "TheProject\\": "app/"
+    }
+  },
+  "require": {
+    "php": "^7.4",
+    "rkistaps/the-app": "^0.2",
+    "league/plates": "^3.3",
+    "spiral/database": "^2.7",
+    "davedevelopment/phpmig": "^1.7"
+  }
 }
