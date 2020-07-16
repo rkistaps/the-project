@@ -1,6 +1,6 @@
 <?php
 
-namespace TheProject\Handlers\Demo;
+namespace TheProject\Handlers\Request\Demo;
 
 use League\Plates\Engine;
 use Psr\Http\Message\ResponseInterface;

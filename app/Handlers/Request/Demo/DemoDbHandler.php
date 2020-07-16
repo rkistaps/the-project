@@ -1,6 +1,6 @@
 <?php
 
-namespace TheProject\Handlers\Demo;
+namespace TheProject\Handlers\Request\Demo;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

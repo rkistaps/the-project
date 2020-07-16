@@ -2,7 +2,9 @@
 
 use League\Plates\Engine;
 use Spiral\Database\Driver\MySQL\MySQLDriver;
+use TheApp\Components\CommandRunner;
 use TheApp\Components\Router;
+use TheApp\Factories\CommandRunnerFactory;
 use TheApp\Factories\ConfigFactory;
 use TheApp\Factories\RouterFactory;
 use TheApp\Interfaces\ConfigInterface;
@@ -34,5 +36,8 @@ return [
             '',
             $driver
         ));
+    },
+    CommandRunner::class => function (ConfigInterface $config, CommandRunnerFactory $factory) {
+        return $factory->fromConfig($config);
     },
 ];

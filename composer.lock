@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8176c63f14a4648f761a9d6474edb45d",
+    "content-hash": "287b0196b00c43857df1397a9d41c6ce",
     "packages": [
         {
             "name": "davedevelopment/phpmig",
@@ -785,12 +785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rkistaps/the-app.git",
-                "reference": "3b8c78308362f3c041b10473a95f0b0d43ce8293"
+                "reference": "44e376a02407247273eda7ba446a86ba07dfe4bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/3b8c78308362f3c041b10473a95f0b0d43ce8293",
-                "reference": "3b8c78308362f3c041b10473a95f0b0d43ce8293",
+                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/44e376a02407247273eda7ba446a86ba07dfe4bb",
+                "reference": "44e376a02407247273eda7ba446a86ba07dfe4bb",
                 "shasum": ""
             },
             "require": {
@@ -802,7 +802,7 @@
                 "psr/http-server-handler": "^1.0",
                 "psr/http-server-middleware": "^1.0",
                 "rappasoft/laravel-helpers": "^1.0",
-                "samejack/php-argv": "^1.0",
+                "samejack/php-argv": "dev-master",
                 "tightenco/collect": "^5.5"
             },
             "type": "library",
@@ -818,20 +818,20 @@
                     "email": "kristaps.taube@gmail.com"
                 }
             ],
-            "time": "2020-07-15T07:24:17+00:00"
+            "time": "2020-07-16T15:21:01+00:00"
         },
         {
             "name": "samejack/php-argv",
-            "version": "1.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/samejack/php-argv.git",
-                "reference": "d23fccbb837bcc9560435ba090411bb95ad5b6e4"
+                "reference": "0551f0f7fd38a5e9dcb316d5cc9028cdd62b21ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samejack/php-argv/zipball/d23fccbb837bcc9560435ba090411bb95ad5b6e4",
-                "reference": "d23fccbb837bcc9560435ba090411bb95ad5b6e4",
+                "url": "https://api.github.com/repos/samejack/php-argv/zipball/0551f0f7fd38a5e9dcb316d5cc9028cdd62b21ac",
+                "reference": "0551f0f7fd38a5e9dcb316d5cc9028cdd62b21ac",
                 "shasum": ""
             },
             "require": {
@@ -866,7 +866,7 @@
                 "cli",
                 "php"
             ],
-            "time": "2020-03-30T08:46:31+00:00"
+            "time": "2020-07-15T12:28:03+00:00"
         },
         {
             "name": "spiral/core",
@@ -2147,7 +2147,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "rkistaps/the-app": 20
+        "rkistaps/the-app": 20,
+        "samejack/php-argv": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

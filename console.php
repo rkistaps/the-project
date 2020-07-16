@@ -1,16 +1,15 @@
 <?php
 
-use samejack\PHP\ArgvParser;
+use TheApp\Factories\AppFactory;
+use TheProject\Core\Factories\ContainerFactory;
 
 define('APP_ROOT', realpath(__DIR__));
 
 require APP_ROOT . '/vendor/autoload.php';
 
-$argvParser = new ArgvParser();
+require APP_ROOT . '/vendor/autoload.php';
 
-$args = $argv;
-if (isset($args[0])) {
-    unset($args[0]);
-}
+$container = ContainerFactory::build();
+$app = AppFactory::consoleAppFromContainer($container);
 
-dd($argvParser->parseConfigs(array_values($args)), $args);
+$app->run($argv);
