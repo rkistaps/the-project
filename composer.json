@@ -17,6 +17,7 @@
         "league/plates": "^3.3",
         "rkistaps/the-app": "dev-console-app",
         "spiral/database": "^2.7",
-        "davedevelopment/phpmig": "^1.7"
+        "davedevelopment/phpmig": "^1.7",
+        "samejack/php-argv": "dev-master"
     }
 }
