@@ -15,9 +15,10 @@
   },
   "require": {
     "php": "^7.4",
-    "rkistaps/the-app": "^0.2",
     "league/plates": "^3.3",
     "spiral/database": "^2.7",
-    "davedevelopment/phpmig": "^1.7"
+    "davedevelopment/phpmig": "^1.7",
+    "samejack/php-argv": "dev-master",
+    "rkistaps/the-app": "^0.3.0"
   }
 }
