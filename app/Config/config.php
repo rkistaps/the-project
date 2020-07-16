@@ -1,5 +1,6 @@
 <?php
 
+use TheProject\Config\CommandConfigurators\TestCommandConfigurator;
 use TheProject\Config\RouteConfigurators\DemoRouteConfigurator;
 
 return [
@@ -17,4 +18,9 @@ return [
             DemoRouteConfigurator::class,
         ],
     ],
+    'command' => [
+        'configurators' => [
+            TestCommandConfigurator::class
+        ]
+    ]
 ];

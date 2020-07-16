@@ -1,6 +1,6 @@
 <?php
 
-namespace TheProject\Factories;
+namespace TheProject\Core\Factories;
 
 use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
