@@ -8,7 +8,7 @@ use TheApp\Factories\CommandRunnerFactory;
 use TheApp\Factories\ConfigFactory;
 use TheApp\Factories\RouterFactory;
 use TheApp\Interfaces\ConfigInterface;
-use TheProject\Factories\TemplateEngineFactory;
+use TheProject\Core\Factories\TemplateEngineFactory;
 use TheProject\Core\Structures\DatabaseConfig;
 
 return [
