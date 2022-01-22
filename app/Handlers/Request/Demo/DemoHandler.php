@@ -25,6 +25,9 @@ class DemoHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return $this->responseBuilder->withContent($this->template->render('Demo/index'))->build();
+        return $this
+            ->responseBuilder
+            ->withContent($this->template->render('Demo/index'))
+            ->build();
     }
 }
