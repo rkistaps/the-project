@@ -4,31 +4,18 @@ define('APP_ROOT', realpath(__DIR__ . '/..'));
 
 use Jasny\HttpMessage\Emitter;
 use Psr\Http\Message\ServerRequestInterface;
-use TheApp\Components\Builders\ResponseBuilder;
-use TheApp\Components\Router;
-use TheApp\Factories\AppFactory;
+use TheApp\Apps\WebApp;
+use TheApp\Interfaces\RouterInterface;
 use TheProject\Core\Factories\ContainerFactory;
-use TheProject\Core\Factories\ServerRequestFactory;
-use TheProject\Handlers\Request\Demo\DemoHandler;
 
 require APP_ROOT . '/vendor/autoload.php';
 
 $container = ContainerFactory::build();
-$app = AppFactory::webAppFromContainer($container);
 
-$request = ServerRequestFactory::buildWithGlobals();
+$request = $container->get(ServerRequestInterface::class);
+$router = $container->get(RouterInterface::class);
 
-// register routes
-$router = $container->get(Router::class);
-$router->get('/', DemoHandler::class);
-
-$router->get('/lorem', function (
-    ServerRequestInterface $serverRequest,
-    ResponseBuilder $responseBuilder
-) {
-    return $responseBuilder->withContent('ipsum')->build();
-});
-
+$app = $container->get(WebApp::class);
 $response = $app->run($request, $router);
 
 $emitter = new Emitter();
