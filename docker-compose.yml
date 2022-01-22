@@ -1,0 +1,34 @@
+version: "3"
+services:
+  app:
+    container_name: theapp_workspace
+    build:
+      context: ./
+      dockerfile: ./docker-conf/PHPAPACHE.Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - default
+    depends_on:
+      - db
+  db:
+    build:
+      context: ./
+      dockerfile: ./docker-conf/MySQL.Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      - persistent:/var/lib/mysql
+      - ./docker-conf/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
+    networks:
+      - default
+    environment:
+      MYSQL_USER: theapp
+      MYSQL_PASSWORD: theapp
+      MYSQL_DATABASE: theapp
+      MYSQL_ROOT_PASSWORD: theapp
+volumes:
+  persistent:
