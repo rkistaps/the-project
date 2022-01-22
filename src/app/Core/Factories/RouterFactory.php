@@ -15,7 +15,6 @@ class RouterFactory
 
     public function __construct(ContainerInterface $container)
     {
-
         $this->container = $container;
     }
 
@@ -23,12 +22,13 @@ class RouterFactory
     {
         $router = $this->container->get(Router::class);
 
-        // register routes
+        // register route with request handler
         $router->get('/', DemoHandler::class);
 
+        // register route with anonymous function
         $router->get('/lorem', fn(
             ServerRequestInterface $serverRequest,
-            ResponseBuilder        $responseBuilder
+            ResponseBuilder $responseBuilder
         ) => $responseBuilder->withContent('ipsum')->build());
 
         return $router;
