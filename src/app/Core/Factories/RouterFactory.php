@@ -4,10 +4,13 @@ namespace TheProject\Core\Factories;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use TheApp\Components\Builders\ResponseBuilder;
 use TheApp\Components\Router;
 use TheApp\Interfaces\RouterInterface;
 use TheProject\Handlers\Request\Demo\DemoHandler;
+use TheProject\Middlewares\DemoMiddleware;
+use TheProject\Middlewares\RandomAccessMiddleware;
 
 class RouterFactory
 {
@@ -30,6 +33,28 @@ class RouterFactory
             ServerRequestInterface $serverRequest,
             ResponseBuilder $responseBuilder
         ) => $responseBuilder->withContent('ipsum')->build());
+
+        // register route with a middleware
+        $router
+            ->get('/middleware', DemoHandler::class)
+            ->withMiddleware(DemoMiddleware::class);
+
+        // register route with access middleware
+        $router
+            ->get('/access-middleware', DemoHandler::class)
+            ->withMiddleware(RandomAccessMiddleware::class);
+
+        // register route with anonymous middleware
+        $router
+            ->get('/anonymous-middleware', DemoHandler::class)
+            ->withMiddleware(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
+                $response = $handler->handle($request);
+
+                $response->getBody()->write('<br />after');
+
+                return $response;
+            });
+
 
         return $router;
     }

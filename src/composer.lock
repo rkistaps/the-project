@@ -785,12 +785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rkistaps/the-app.git",
-                "reference": "3025ade6a51c48db21adcef77a3696ef330f729a"
+                "reference": "2d1c60e16a91fdfca7500ebdb2a8a6f0c34b659b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/3025ade6a51c48db21adcef77a3696ef330f729a",
-                "reference": "3025ade6a51c48db21adcef77a3696ef330f729a",
+                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/2d1c60e16a91fdfca7500ebdb2a8a6f0c34b659b",
+                "reference": "2d1c60e16a91fdfca7500ebdb2a8a6f0c34b659b",
                 "shasum": ""
             },
             "require": {
@@ -822,7 +822,7 @@
                 "issues": "https://github.com/rkistaps/the-app/issues",
                 "source": "https://github.com/rkistaps/the-app/tree/master"
             },
-            "time": "2022-01-15T14:56:45+00:00"
+            "time": "2022-01-22T12:11:07+00:00"
         },
         {
             "name": "samejack/php-argv",

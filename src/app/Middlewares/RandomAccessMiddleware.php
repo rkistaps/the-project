@@ -21,7 +21,7 @@ class RandomAccessMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if (rand(0, 1)) {
-            return $this->responseBuilder->withContent('Im a middleware')->build();
+            return $this->responseBuilder->withContent('Random access middleware!')->build();
         }
 
         return $handler->handle($request);
