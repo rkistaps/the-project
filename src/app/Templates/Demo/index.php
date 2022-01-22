@@ -1,3 +1,3 @@
 <?php $this->layout('default-layout');
 
-echo 'This is content';
+echo '<div>This is content</div>';
