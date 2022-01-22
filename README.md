@@ -1,2 +1,2 @@
-# the-docker-app
-Personal dockerized dev environment with Apache, PHP, and MySQL
+# TheProject
+TheProject is a proof of concept for https://github.com/rkistaps/the-app framework.
