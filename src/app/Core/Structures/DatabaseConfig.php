@@ -2,7 +2,7 @@
 
 namespace TheProject\Core\Structures;
 
-use TheProject\Helpers\Traits\FromArrayTrait;
+use TheProject\Core\Helpers\Traits\FromArrayTrait;
 
 class DatabaseConfig
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace TheProject\Helpers\Traits;
+namespace TheProject\Core\Helpers\Traits;
 
 trait FromArrayTrait
 {
