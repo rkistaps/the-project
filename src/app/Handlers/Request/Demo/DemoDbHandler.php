@@ -2,35 +2,34 @@
 
 namespace TheProject\Handlers\Request\Demo;
 
+use Opis\Database\Database;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Spiral\Database\Database;
+use TheApp\Components\Builders\ResponseBuilder;
 
 class DemoDbHandler implements RequestHandlerInterface
 {
     private Database $database;
+    private ResponseBuilder $responseBuilder;
 
-    public function __construct(Database $database)
+    public function __construct(Database $database, ResponseBuilder $responseBuilder)
     {
         $this->database = $database;
+        $this->responseBuilder = $responseBuilder;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-//        $schema = $this->database->table('test')->getSchema();
-//        $schema->primary('id');
-//        $schema->string('name');
-//        $schema->string('surname');
-//        $schema->save();
-//
-//        $this->database->insert('test')->values([
-//            'name' => 'Juris',
-//            'surname' => 'Testētājs',
-//        ])->run();
+        $tables = $this->database->schema()->getTables();
 
-        $result = $this->database->table('test')->select()->where(['id' => 1])->fetchAll();
+        $response = $this->responseBuilder->build();
 
-        dd($result);
+        $response->getBody()->write('DB tables: <br />');
+        foreach ($tables as $table) {
+            $response->getBody()->write($table . '<br />');
+        }
+
+        return $response;
     }
 }

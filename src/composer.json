@@ -13,13 +13,12 @@
       "TheProject\\": "app/"
     },
     "files": [
-      "src/Core/Library/functions.php"
+      "app/Core/Library/functions.php"
     ]
   },
   "require": {
     "php": "^7.4",
     "league/plates": "^3.3",
-    "spiral/database": "^2.7",
     "davedevelopment/phpmig": "^1.7",
     "rkistaps/the-app": "dev-master",
     "opis/database": "^4.2",

@@ -8,11 +8,14 @@ use Psr\Http\Server\RequestHandlerInterface;
 use TheApp\Components\Builders\ResponseBuilder;
 use TheApp\Components\Router;
 use TheApp\Interfaces\RouterInterface;
+use TheProject\Handlers\Request\Demo\DemoDbHandler;
 use TheProject\Handlers\Request\Demo\DemoHandler;
+use TheProject\Handlers\Request\Demo\ParameterRequestDemoHandler;
 use TheProject\Middlewares\DemoMiddleware;
 use TheProject\Middlewares\InnerMiddleware;
 use TheProject\Middlewares\OuterMiddleware;
 use TheProject\Middlewares\RandomAccessMiddleware;
+use TheProject\Middlewares\AuthorizedUserMiddleware;
 
 class RouterFactory
 {
@@ -36,6 +39,12 @@ class RouterFactory
             ResponseBuilder $responseBuilder
         ) => $responseBuilder->withContent('ipsum')->build());
 
+        // register route with a parameter - http://the-project.test/lorem/15/ipsum
+        $router->get('/lorem/[i:id]/ipsum', ParameterRequestDemoHandler::class);
+
+        // register route with request handler - http://the-project.test/db
+        $router->get('/db', DemoDbHandler::class);
+
         // register route with a middleware - http://the-project.test/middleware
         $router
             ->get('/middleware', DemoHandler::class)
@@ -56,6 +65,16 @@ class RouterFactory
 
                 return $response;
             });
+
+        // register route with multiple middlewares - http://the-project.test/authorized-user
+        $router->get('/authorized-user', function (
+            ServerRequestInterface $serverRequest,
+            ResponseBuilder $responseBuilder
+        ) {
+            return $responseBuilder
+                ->withContent('Authorized user: ' . $serverRequest->getAttribute('authorized-user'))
+                ->build();
+        })->withMiddleware(AuthorizedUserMiddleware::class);
 
         // register route with multiple middlewares - http://the-project.test/multiple-middlewares
         $router->get('/multiple-middlewares', DemoHandler::class)

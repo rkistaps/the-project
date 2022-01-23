@@ -2,24 +2,20 @@
 
 namespace TheProject\Core\Factories;
 
-use Spiral\Database\Driver\MySQL\MySQLDriver;
+use Opis\Database\Connection;
+use Opis\Database\Database;
 use TheProject\Core\Structures\DatabaseConfig;
-use Spiral\Database\Database;
 
 class DatabaseFactory
 {
-    public function buildFromConfig(DatabaseConfig $databaseConfig): Database
+    public function buildFromConfig(DatabaseConfig $config): Database
     {
-        $driver = new MySQLDriver([
-            'connection' => 'mysql:host=' . $databaseConfig->host . ';dbname=' . $databaseConfig->name,
-            'username' => $databaseConfig->username,
-            'password' => $databaseConfig->password,
-        ]);
-
-        return new Database(
-            $databaseConfig->name,
-            '',
-            $driver
+        $connection = new Connection(
+            'mysql:host=' . $config->host . ';dbname=' . $config->name,
+            $config->username,
+            $config->password
         );
+
+        return new Database($connection);
     }
 }
