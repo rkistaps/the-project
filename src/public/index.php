@@ -18,5 +18,5 @@ $router = $container->get(RouterInterface::class);
 $app = $container->get(WebApp::class);
 $response = $app->run($request, $router);
 
-$emitter = new Emitter();
+$emitter = $container->get(Emitter::class);
 $emitter->emit($response);
