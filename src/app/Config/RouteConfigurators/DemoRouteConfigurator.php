@@ -20,11 +20,14 @@ class DemoRouteConfigurator implements RouterConfiguratorInterface
             function (RequestInterface $request, ResponseBuilder $responseBuilder) {
                 return $responseBuilder->withContent("Hi, mom! I'm at " . $request->getUri()->getPath())->build();
             });
+
         // regular request handler
         $router->get(self::BASE_PATH . '/handler', DemoHandler::class);
+
         // test random access middleware
         $router->get(self::BASE_PATH . '/random-access', DemoHandler::class)
             ->withMiddleware(RandomAccessMiddleware::class);
+        
         $router->get(self::BASE_PATH . '/database', DemoDbHandler::class);
     }
 }

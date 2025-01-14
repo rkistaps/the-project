@@ -17,10 +17,10 @@
     ]
   },
   "require": {
-    "php": "^7.4",
+    "php": "^8.3",
     "league/plates": "^3.3",
     "davedevelopment/phpmig": "^1.7",
-    "rkistaps/the-app": "dev-master",
+    "rkistaps/the-app": "dev-php-version-upgrade",
     "opis/database": "^4.2",
     "jawira/case-converter": "^3.4",
     "tightenco/collect": "^8.80"
