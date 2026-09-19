@@ -8,7 +8,7 @@ use TheProject\Handlers\Command\Test\TestCommandHandler;
 
 class TestCommandConfigurator implements CommandConfiguratorInterface
 {
-    public function configureCommands(CommandRunner $commandRunner)
+    public function configureCommands(CommandRunner $commandRunner): void
     {
         // regular command handler
         $commandRunner->addCommand('test', TestCommandHandler::class);

@@ -21,17 +21,14 @@ class CommandRunnerFactory
 
     public function build(): CommandRunner
     {
-        $runner = new CommandRunner(
-            $this->container,
-            $this->container->get(CommandHandlerFactory::class)
-        );
+        $runner = new CommandRunner($this->container->get(CommandHandlerFactory::class));
 
         // regular command handler
-        // ./run test -lorem=ipsum
+        // ./run test --lorem=ipsum
         $runner->addCommand('test', TestCommandHandler::class);
 
         // callable command handler
-        // ./run callable -foo=foo1 -bar=bar1
+        // ./run callable --foo=foo1 --bar=bar1
         $runner->addCommand('callable',
             function ($foo, $bar = null) {
                 echo 'This is callable command with foo = ' . print_r($foo, true) . PHP_EOL;

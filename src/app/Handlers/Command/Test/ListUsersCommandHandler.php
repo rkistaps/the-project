@@ -13,7 +13,7 @@ class ListUsersCommandHandler implements \TheApp\Interfaces\CommandHandlerInterf
         $this->repository = $repository;
     }
 
-    public function handle(array $params = [])
+    public function handle(array $params = []): void
     {
         $users = $this->repository->findAll();
 
