@@ -1,9 +1,12 @@
 <?php
 
 use League\Plates\Engine;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Opis\Database\Database;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use TheApp\Components\CommandRunner;
 use TheApp\Factories\ConfigFactory;
 use TheApp\Interfaces\ConfigInterface;
@@ -20,6 +23,8 @@ use TheProject\Core\Structures\DatabaseConfig;
 return [
     ConfigInterface::class => fn(ConfigFactory $configFactory) => $configFactory->fromArray(require APP_ROOT . '/app/Config/config.php'),
     ServerRequestInterface::class => fn() => ServerRequestFactory::buildWithGlobals(),
+    ResponseFactoryInterface::class => fn(Psr17Factory $factory) => $factory,
+    StreamFactoryInterface::class => fn(Psr17Factory $factory) => $factory,
     RouterInterface::class => fn(RouterFactory $factory) => $factory->buildRouter(),
     Engine::class => fn(TemplateEngineFactory $factory, ConfigInterface $config) => $factory->build($config),
     DatabaseConfig::class => fn(ConfigInterface $config) => DatabaseConfig::fromArray($config->get('database', [])),

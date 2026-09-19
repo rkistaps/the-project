@@ -2,13 +2,16 @@
 
 namespace TheProject\Core\Factories;
 
-use Jasny\HttpMessage\ServerRequest;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Nyholm\Psr7Server\ServerRequestCreator;
 use Psr\Http\Message\ServerRequestInterface;
 
 class ServerRequestFactory
 {
     public static function buildWithGlobals(): ServerRequestInterface
     {
-        return (new ServerRequest())->withGlobalEnvironment();
+        $factory = new Psr17Factory();
+
+        return (new ServerRequestCreator($factory, $factory, $factory, $factory))->fromGlobals();
     }
 }
