@@ -1,0 +1,127 @@
+<?php
+
+// Opis declares its fluent where() chain as unions (Where|Delete|Select|Update), which hides
+// that a condition returns the statement the chain started from. These stubs carry that type through.
+
+namespace Opis\Database\SQL;
+
+class WhereStatement
+{
+    /** @return Where<static> */
+    public function where(mixed $column, bool $isExpr = false) {}
+
+    /** @return Where<static> */
+    public function andWhere(mixed $column, bool $isExpr = false) {}
+
+    /** @return Where<static> */
+    public function orWhere(mixed $column, bool $isExpr = false) {}
+}
+
+class BaseStatement extends WhereStatement
+{
+    /** @return static */
+    public function join(mixed $table, \Closure $closure) {}
+
+    /** @return static */
+    public function leftJoin(mixed $table, \Closure $closure) {}
+
+    /** @return static */
+    public function rightJoin(mixed $table, \Closure $closure) {}
+
+    /** @return static */
+    public function fullJoin(mixed $table, \Closure $closure) {}
+
+    /** @return static */
+    public function crossJoin(mixed $table) {}
+}
+
+/**
+ * @template TStatement of WhereStatement
+ */
+class Where
+{
+    /** @return TStatement */
+    public function is(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function isNot(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function lessThan(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function greaterThan(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function atLeast(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function atMost(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function between(mixed $value1, mixed $value2): WhereStatement {}
+
+    /** @return TStatement */
+    public function notBetween(mixed $value1, mixed $value2): WhereStatement {}
+
+    /** @return TStatement */
+    public function like(string $value): WhereStatement {}
+
+    /** @return TStatement */
+    public function notLike(string $value): WhereStatement {}
+
+    /** @return TStatement */
+    public function in(mixed $value): WhereStatement {}
+
+    /** @return TStatement */
+    public function notIn(mixed $value): WhereStatement {}
+
+    /** @return TStatement */
+    public function isNull(): WhereStatement {}
+
+    /** @return TStatement */
+    public function notNull(): WhereStatement {}
+
+    /** @return TStatement */
+    public function eq(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function ne(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function lt(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function gt(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function gte(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function lte(mixed $value, bool $is_column = false): WhereStatement {}
+
+    /** @return TStatement */
+    public function nop(): WhereStatement {}
+}
+
+class Query extends BaseStatement
+{
+    /**
+     * Opis documents array, but Query::select() forwards to Select::select(), which also takes a closure.
+     *
+     * @param string|\Closure|Expression|string[]|\Closure[]|Expression[] $columns
+     * @return \Opis\Database\ResultSet
+     */
+    public function select($columns = []) {}
+}
+
+// Declared so the types above resolve when PHPStan validates this stub file on its own.
+class Expression
+{
+}
+
+namespace Opis\Database;
+
+class ResultSet
+{
+}
