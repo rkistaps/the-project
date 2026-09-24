@@ -20,7 +20,7 @@ final class ModelDataHydratorServiceTest extends TestCase
         self::assertInstanceOf(User::class, $user);
         self::assertSame(15, $user->id);
         self::assertSame('juris', $user->username);
-        self::assertFalse(isset($user->password));
+        self::assertFalse(isset($user->email));
     }
 
     public function testExtractReturnsSnakeCaseKeys(): void
@@ -28,10 +28,10 @@ final class ModelDataHydratorServiceTest extends TestCase
         $user = new User();
         $user->id = 1;
         $user->username = 'juris';
-        $user->password = 'secret';
+        $user->email = 'juris@example.com';
 
         self::assertSame(
-            ['id' => 1, 'username' => 'juris', 'password' => 'secret'],
+            ['id' => 1, 'username' => 'juris', 'email' => 'juris@example.com'],
             (new ModelDataHydratorService())->extract($user)
         );
     }
