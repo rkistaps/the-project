@@ -3,3 +3,4 @@
 /.phpunit.cache
 /.env
 /coverage/
+/.idea/
