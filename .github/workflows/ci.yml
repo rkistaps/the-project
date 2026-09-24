@@ -47,6 +47,27 @@ jobs:
   tests:
     name: PHPUnit + coverage
     runs-on: ubuntu-latest
+    # The test database. Its name matches DB_NAME in .env.testing; the rest reaches PHP through env below.
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_DATABASE: theapp_test
+          MYSQL_USER: theapp
+          MYSQL_PASSWORD: theapp
+          MYSQL_ROOT_PASSWORD: theapp
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -ptheapp --silent"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=30
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: theapp
+      DB_PASSWORD: theapp
     steps:
       - uses: actions/checkout@v4
 
@@ -61,7 +82,8 @@ jobs:
       - name: Run tests
         run: |
           set +e
-          vendor/bin/phpunit tests/ --coverage-clover clover.xml --log-junit junit.xml
+          # --fail-on-skipped: database tests skip themselves without a database, which must not pass here
+          vendor/bin/phpunit --fail-on-skipped --coverage-clover clover.xml --log-junit junit.xml
           status=$?
           php .github/scripts/phpunit-report.php junit.xml clover.xml phpunit.md
           cat phpunit.md >> "$GITHUB_STEP_SUMMARY"
