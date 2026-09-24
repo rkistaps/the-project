@@ -115,18 +115,6 @@ parameters:
 			path: src/Core/Abstracts/AbstractCollection.php
 
 		-
-			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModel\:\:__set\(\) has parameter \$name with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/Core/Abstracts/AbstractModel.php
-
-		-
-			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModel\:\:__set\(\) has parameter \$value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/Core/Abstracts/AbstractModel.php
-
-		-
 			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:firstWhere\(\) has parameter \$key with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
