@@ -1,27 +1,28 @@
 FROM php:8.4-apache
 
-# Install Vim and Nano
-RUN apt-get update
-RUN apt-get install nano
-RUN apt-get install vim -y
+# One layer, so the apt lists are removed in the same step that downloads them.
+# git and unzip are for Composer; the MySQL client is for poking at the database from ./docker ssh.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        git \
+        unzip \
+        libzip-dev \
+        default-mysql-client \
+        nano \
+        vim \
+    && docker-php-ext-install zip pdo_mysql \
+    && pecl install pcov \
+    && docker-php-ext-enable pcov \
+    && a2enmod rewrite \
+    && rm -rf /var/lib/apt/lists/* /tmp/pear
 
-RUN apt-get install libzip-dev -y
-RUN apt-get install zip -y
-RUN apt-get install default-mysql-client -y
+# PHP's development settings: errors shown, assertions on. This image is the development environment.
+RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-# Install php extensions
-RUN docker-php-ext-install zip
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Composer runs inside the container (./docker-run composer install), so the host needs no PHP.
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
-# Install git
-RUN apt-get -y install git
-
-# Add mod_rewrite module
-RUN a2enmod rewrite
-
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Copy stuff into container
-COPY . /var/www/html/
+# The source is not copied in: docker-compose.yml mounts the repo at /var/www/html, so the
+# image only holds the runtime. A production image would COPY the code and run
+# `composer install --no-dev` here instead.
 COPY ./docker-conf/httpd.conf /etc/apache2/sites-available/000-default.conf
