@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+
+# Turns the template into your project. Run it once, right after creating a repository from the template:
+#
+#   ./init                                                 asks for the names
+#   ./init --package=acme/shop --namespace='Acme\Shop'     no questions
+#
+# It renames the PHP namespace (TheProject\), the Composer package (rkistaps/the-project), the Docker
+# project and host name (the-project), the database, its user and password (theapp) and the title
+# (TheProject), updates composer.lock and the autoloader, then removes itself.
+
+set -euo pipefail
+cd "$(dirname "$0")"
+
+TEMPLATE_PACKAGE='rkistaps/the-project'
+
+usage() {
+  cat <<'USAGE'
+Usage: ./init [--package=vendor/name] [--namespace='Vendor\Name']
+
+  --package     Composer package name, such as acme/shop. Lower case, as Composer requires
+  --namespace   PHP namespace for src/, such as Acme\Shop. Defaults to one made from the package name
+
+Other names are derived from the package name: acme/shop-app gives the Docker project and host
+"shop-app" (shop-app.test), the database, user and password "shop_app", and the title "ShopApp".
+USAGE
+}
+
+package=''
+namespace=''
+for argument in "$@"; do
+  case "$argument" in
+    --package=*) package="${argument#*=}" ;;
+    --namespace=*) namespace="${argument#*=}" ;;
+    -h | --help) usage; exit 0 ;;
+    *) echo "Unknown option: $argument"; echo; usage; exit 1 ;;
+  esac
+done
+
+if ! grep -q "\"name\": \"$TEMPLATE_PACKAGE\"" composer.json; then
+  echo "This project is already initialised: composer.json isn't named $TEMPLATE_PACKAGE."
+  exit 1
+fi
+
+if [[ -z "$package" ]]; then
+  read -rp 'Composer package (vendor/name, such as acme/shop): ' package
+fi
+if [[ ! "$package" =~ ^[a-z0-9]([_.-]?[a-z0-9]+)*/[a-z0-9]([_.-]?[a-z0-9]+)*$ ]]; then
+  echo "\"$package\" isn't a Composer package name: use lower-case vendor/name, such as acme/shop."
+  exit 1
+fi
+
+# acme/shop-app -> Acme\ShopApp
+default_namespace=$(perl -e 'print join("\\", map { join("", map { ucfirst } split /[-_.]/) } split m{/}, $ARGV[0])' "$package")
+if [[ -z "$namespace" ]]; then
+  read -rp "PHP namespace [$default_namespace]: " namespace
+  namespace="${namespace:-$default_namespace}"
+fi
+namespace="${namespace%\\}"
+if [[ ! "$namespace" =~ ^[A-Za-z_][A-Za-z0-9_]*(\\[A-Za-z_][A-Za-z0-9_]*)*$ ]]; then
+  echo "\"$namespace\" isn't a PHP namespace: use names separated by backslashes, such as Acme\\Shop."
+  exit 1
+fi
+
+slug="${package#*/}"                       # shop-app: Docker project and host name
+database=$(echo "$slug" | tr -c 'a-z0-9\n' '_') # shop_app: database, user and password
+title="${namespace##*\\}"                  # ShopApp
+
+echo
+echo "  Composer package   $package"
+echo "  PHP namespace      $namespace\\"
+echo "  Docker project     $slug (host name $slug.test)"
+echo "  Database           $database (tests: ${database}_test)"
+echo "  Title              $title"
+echo
+
+# Every tracked text file except the lock file and this script
+mapfile -t files < <(git ls-files | grep -v -x -e composer.lock -e init | while read -r file; do
+  if [[ -f "$file" ]] && grep -Iq . "$file"; then echo "$file"; fi
+done)
+
+# Blocks that only make sense in the template: this script's CI job and its README section
+perl -0pi -e 's/^[ \t]*# init:start.*?# init:end[^\n]*\n//gms' .github/workflows/ci.yml
+perl -0pi -e 's/^<!-- init:start -->.*?<!-- init:end -->\n//gms' README.md
+
+# Order matters: the namespace before the bare title, the package name before the slug
+export OLD NEW
+replace() {
+  OLD="$1" NEW="$2" perl -pi -e 's/\Q$ENV{OLD}\E/$ENV{NEW}/g' "${@:3}"
+}
+json_namespace=$(printf '%s' "$namespace" | sed 's/\\/\\\\/g')   # composer.json escapes backslashes
+replace 'TheProject\\' "$json_namespace\\\\" composer.json
+replace 'TheProject\' "$namespace\\" "${files[@]}"
+replace 'TheProject' "$title" "${files[@]}"
+replace "$TEMPLATE_PACKAGE" "$package" "${files[@]}"
+replace 'the-project' "$slug" "${files[@]}"
+replace 'theapp' "$database" "${files[@]}"
+
+# composer.lock stores a hash of composer.json, and the autoloader has the old namespace
+composer_command=()
+if composer --version >/dev/null 2>&1; then
+  composer_command=(composer)
+elif command -v docker >/dev/null 2>&1; then
+  # No Composer on the host: use the official image. MSYS_NO_PATHCONV keeps Git Bash from rewriting /app
+  composer_command=(env MSYS_NO_PATHCONV=1 docker run --rm -v "$(pwd -W 2>/dev/null || pwd):/app" -w /app composer:2)
+fi
+
+if [[ ${#composer_command[@]} -gt 0 ]]; then
+  "${composer_command[@]}" update --lock --no-install --no-interaction --quiet
+  if [[ -d vendor ]]; then
+    "${composer_command[@]}" dump-autoload --quiet
+  fi
+else
+  echo "Neither composer nor docker was found: run \`composer update --lock\` before installing."
+fi
+
+rm -- "$0"
+
+echo "Done. Next:"
+echo "  cp .env.example .env"
+echo "  ./docker build && ./docker start"
+echo "  ./docker-run composer install"
+echo "  ./docker-run vendor/bin/phpmig migrate"
+echo "Then check \"authors\" in composer.json, and commit the changes."
