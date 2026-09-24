@@ -13,18 +13,25 @@ use TheProject\Core\Factories\ContainerFactory;
  */
 final class ConsoleAppTest extends TestCase
 {
-    public function testRunsCommandHandlerWithOptions(): void
+    public function testCallableCommandGetsOptionsByName(): void
     {
-        $this->expectOutputRegex('/Command handler with params: .*\[lorem\] => ipsum/s');
+        $this->expectOutputString('Hello, Juris!' . PHP_EOL);
 
-        self::assertSame(0, $this->runConsole(['console.php', 'test', '--lorem=ipsum']));
+        self::assertSame(0, $this->runConsole(['console.php', 'hello', '--name=Juris']));
     }
 
-    public function testRunsCallableCommand(): void
+    public function testCallableCommandUsesDefault(): void
     {
-        $this->expectOutputRegex('/This is callable command with foo = foo1/');
+        $this->expectOutputString('Hello, World!' . PHP_EOL);
 
-        self::assertSame(0, $this->runConsole(['console.php', '--command=callable', '--foo=foo1']));
+        self::assertSame(0, $this->runConsole(['console.php', '--command=hello']));
+    }
+
+    public function testCommandHandlerRejectsMissingOption(): void
+    {
+        $this->expectOutputString('Missing required option --email' . PHP_EOL);
+
+        self::assertSame(1, $this->runConsole(['console.php', 'create-user', '--username=juris']));
     }
 
     public function testUnknownCommandFails(): void

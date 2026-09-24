@@ -5,10 +5,7 @@ namespace TheProject\Core\Factories;
 use Psr\Container\ContainerInterface;
 use TheApp\Components\CommandRunner;
 use TheApp\Factories\CommandHandlerFactory;
-use TheProject\Handlers\Command\Test\CreateUserCommandHandler;
-use TheProject\Handlers\Command\Test\ListUsersCommandHandler;
-use TheProject\Handlers\Command\Test\TestCommandHandler;
-use TheProject\Handlers\Request\Demo\DemoDbHandler;
+use TheProject\Console\CreateUserCommand;
 
 class CommandRunnerFactory
 {
@@ -23,26 +20,15 @@ class CommandRunnerFactory
     {
         $runner = new CommandRunner($this->container->get(CommandHandlerFactory::class));
 
-        // regular command handler
-        // ./run test --lorem=ipsum
-        $runner->addCommand('test', TestCommandHandler::class);
+        // A callable command: options are matched to its parameters by name and type.
+        // ./run hello --name=World
+        $runner->addCommand('hello', function (string $name = 'World') {
+            echo "Hello, {$name}!" . PHP_EOL;
+        });
 
-        // callable command handler
-        // ./run callable --foo=foo1 --bar=bar1
-        $runner->addCommand('callable',
-            function ($foo, $bar = null) {
-                echo 'This is callable command with foo = ' . print_r($foo, true) . PHP_EOL;
-                echo 'Bar is ' . PHP_EOL;
-                var_dump($bar);
-                echo PHP_EOL;
-            }
-        );
-
-        // ./run create-user
-        $runner->addCommand('create-user', CreateUserCommandHandler::class);
-
-        // ./run list-users
-        $runner->addCommand('list-users', ListUsersCommandHandler::class);
+        // A command handler class, resolved from the container with its dependencies.
+        // ./run create-user --username=juris --email=juris@example.com
+        $runner->addCommand('create-user', CreateUserCommand::class);
 
         return $runner;
     }

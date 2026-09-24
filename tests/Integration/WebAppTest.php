@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TheProject\Tests\Integration;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use TheApp\Apps\WebApp;
@@ -18,33 +17,25 @@ use TheProject\Core\Factories\ContainerFactory;
  */
 final class WebAppTest extends TestCase
 {
-    public static function routeProvider(): array
+    public function testHomePageRendersTemplate(): void
     {
-        return [
-            'handler' => ['/', 'This is content'],
-            'callable' => ['/lorem', 'ipsum'],
-            'route parameter' => ['/lorem/15/ipsum', 'Parameter given: 15'],
-            'middleware' => ['/middleware', 'Demo middleware'],
-            'anonymous middleware' => ['/anonymous-middleware', 'after'],
-            'request attribute from middleware' => ['/authorized-user', 'Authorized user: Juris Testētājs'],
-        ];
-    }
-
-    #[DataProvider('routeProvider')]
-    public function testRouteResponds(string $path, string $expectedContent): void
-    {
-        $response = $this->request($path);
+        $response = $this->request('/');
 
         self::assertSame(200, $response->getStatusCode());
-        self::assertStringContainsString($expectedContent, (string) $response->getBody());
+        self::assertStringContainsString('It works', (string) $response->getBody());
     }
 
-    public function testMiddlewaresWrapResponseInOrder(): void
+    public function testMiddlewareAddsResponseTime(): void
     {
-        $body = (string) $this->request('/multiple-middlewares')->getBody();
+        self::assertMatchesRegularExpression('/^\d+\.\d{2}ms$/', $this->request('/')->getHeaderLine('X-Response-Time'));
+    }
 
-        self::assertStringStartsWith('Outer before<br>Inner before<br>', $body);
-        self::assertStringEndsWith('Inner after<br>Outer after<br>', $body);
+    public function testRouteParameterReachesHandler(): void
+    {
+        $response = $this->request('/hello/World');
+
+        self::assertSame(200, $response->getStatusCode());
+        self::assertSame('Hello, World!', (string) $response->getBody());
     }
 
     public function testUnknownRouteThrows(): void
