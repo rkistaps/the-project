@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Run PHPStan in the app container. Arguments go to `phpstan analyse`:
+#   ./docker-analyse src/Core
+#   ./docker-analyse --generate-baseline phpstan-baseline.neon --allow-empty-baseline
+
+source "$(dirname "$0")/docker-conf/scripts.sh"
+
+require_running
+
+app_exec vendor/bin/phpstan analyse --memory-limit=1G "$@"
