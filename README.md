@@ -1,5 +1,18 @@
 # TheProject
 TheProject is a proof of concept for https://github.com/rkistaps/the-app framework.
+
+<!-- init:start -->
+## Start a project from this template
+
+Create a repository with **Use this template** on GitHub, clone it, and run:
+
+```bash
+./init
+```
+
+It asks for your Composer package name (such as `acme/shop`) and PHP namespace (default `Acme\Shop`), and renames the template's namespace, package, Docker project, host name, database and title. It then updates `composer.lock` and removes itself, along with this section and its CI job. It needs Git Bash on Windows, and Composer or Docker. To skip the questions: `./init --package=acme/shop --namespace='Acme\Shop'`.
+<!-- init:end -->
+
 ## Tests
 
 Run them in the container with `./docker-test` (arguments go to PHPUnit, e.g. `./docker-test --filter WebAppTest`), or `./docker-coverage` for a coverage report. Tests live in `tests/`, and the base classes in `tests/Support/`.
