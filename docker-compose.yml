@@ -1,13 +1,14 @@
-version: "3"
+# Ports, credentials and the project name come from .env (see .env.example). There are no fixed
+# container names, so several projects made from this template can run side by side: scripts find
+# a container with `docker compose ps -q app`.
 services:
   app:
-    container_name: theapp_workspace
     build:
       context: ./
       dockerfile: ./docker-conf/PHPAPACHE.Dockerfile
     ports:
-      - "80:80"
-      - "443:443"
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
     volumes:
       - ./:/var/www/html
     environment:
@@ -24,13 +25,12 @@ services:
       context: ./
       dockerfile: ./docker-conf/MySQL.Dockerfile
     ports:
-      - "3306:3306"
+      - "${DB_PORT:-3306}:3306"
     volumes:
       - persistent:/var/lib/mysql
       - ./docker-conf/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       - default
-    # Compose reads these from .env
     environment:
       MYSQL_DATABASE: ${DB_NAME:-theapp}
       MYSQL_USER: ${DB_USER:-theapp}
