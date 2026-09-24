@@ -19,14 +19,13 @@ final class ListUsersHandler implements RequestHandlerInterface
     public function __construct(
         private UserRepository $users,
         private JsonResponder $json,
-    ) {
-    }
+    ) {}
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $users = array_map(
             fn(User $user) => UserJson::from($user),
-            array_values($this->users->findAll()->all())
+            array_values($this->users->findAll()->all()),
         );
 
         return $this->json->respond(['data' => $users]);
