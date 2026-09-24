@@ -25,7 +25,7 @@
     "php": "^8.3",
     "league/plates": "^3.3",
     "davedevelopment/phpmig": "^1.7",
-    "rkistaps/the-app": "dev-master",
+    "rkistaps/the-app": "^0.5",
     "opis/database": "^4.2",
     "jawira/case-converter": "^3.4",
     "tightenco/collect": "^8.80",
