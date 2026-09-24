@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbed846113df93d504daeb72e9391440",
+    "content-hash": "05b283f0a7110ec28ac63d8d0a6d305f",
     "packages": [
         {
             "name": "davedevelopment/phpmig",
@@ -876,7 +876,7 @@
         },
         {
             "name": "rkistaps/the-app",
-            "version": "dev-master",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rkistaps/the-app.git",
@@ -905,7 +905,6 @@
             "suggest": {
                 "filp/whoops": "Shows a debug page for uncaught exceptions during development"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -926,7 +925,7 @@
             "description": "PHP micro-framework that routes PSR-7 requests through PSR-15 middleware and runs console commands",
             "support": {
                 "issues": "https://github.com/rkistaps/the-app/issues",
-                "source": "https://github.com/rkistaps/the-app/tree/master"
+                "source": "https://github.com/rkistaps/the-app/tree/v0.5.0"
             },
             "time": "2026-09-16T19:27:57+00:00"
         },
@@ -3913,9 +3912,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "rkistaps/the-app": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
