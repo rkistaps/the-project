@@ -4,7 +4,7 @@ namespace TheProject\Core\Helpers\Traits;
 
 trait FromArrayTrait
 {
-    public static function fromArray(array $data = [])
+    public static function fromArray(array $data = []): self
     {
         $obj = new self();
 

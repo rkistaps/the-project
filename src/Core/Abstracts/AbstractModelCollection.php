@@ -8,22 +8,25 @@ use TheProject\Core\Exceptions\InvalidArgumentException;
 
 abstract class AbstractModelCollection extends AbstractCollection
 {
+    /**
+     * @return class-string<AbstractModel>
+     */
     abstract public function getModelClassName(): string;
 
     /**
-     * @param array $data
-     * @return self
+     * @return static
      */
-    public static function collect(array $data = [])
+    public static function collect(array $data = []): AbstractModelCollection
     {
-        $calledClass = get_called_class();
-
-        return new $calledClass($data);
+        return new static($data);
     }
 
+    /**
+     * @return static
+     */
     public function map(callable $callable): AbstractModelCollection
     {
-        return self::collect($this->collection->map($callable)->all());
+        return static::collect($this->collection->map($callable)->all());
     }
 
     public function all(): array
@@ -31,6 +34,10 @@ abstract class AbstractModelCollection extends AbstractCollection
         return $this->collection->all();
     }
 
+    /**
+     * @return static
+     * @throws InvalidArgumentException When the item isn't this collection's model class
+     */
     public function add(AbstractModel $item): AbstractModelCollection
     {
         if (!is_a($item, $this->getModelClassName())) {
@@ -42,44 +49,21 @@ abstract class AbstractModelCollection extends AbstractCollection
         return $this;
     }
 
-    public function firstWhere($key, $operator = null, $value = null): ?AbstractModel
+    public function firstWhere(string $key, mixed $operator = null, mixed $value = null): ?AbstractModel
     {
-        return parent::firstWhere($key, $operator, $value);
-    }
-
-    public function where($key, $operator = null, $value = null): AbstractModelCollection
-    {
-        $items = parent::where($key, $operator, $value)->all();
-
-        return self::collect($items);
-    }
-
-    public function random($number = null)
-    {
-        $result = parent::random($number);
-
-        return is_null($number)
-            ? $result
-            : self::collect($result);
-    }
-
-    public function filter(callable $callback = null): AbstractModelCollection
-    {
-        $items = parent::filter($callback)->all();
-
-        return self::collect($items);
+        return parent::firstWhere(...func_get_args());
     }
 
     /**
-     * @param int $offset
-     * @param int|null $length
-     * @return static
+     * One random model, or a collection of $number models. Null when the collection is empty.
      */
-    public function slice(int $offset, int $length = null)
+    public function random(?int $number = null): AbstractModel|AbstractModelCollection|null
     {
-        $this->collection = $this->collection->slice($offset, $length);
+        $result = parent::random($number);
 
-        return $this;
+        return $result === null || $number === null
+            ? $result
+            : static::collect($result->all());
     }
 
     public function property(string $property): array
@@ -102,7 +86,7 @@ abstract class AbstractModelCollection extends AbstractCollection
         return $this->first(fn(AbstractModel $model) => $model->id === $id);
     }
 
-    public function reduce(callable $callable, $initial = null)
+    public function reduce(callable $callable, mixed $initial = null): mixed
     {
         return $this->collection->reduce($callable, $initial);
     }

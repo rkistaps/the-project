@@ -6,6 +6,11 @@ use TheProject\Core\Abstracts\AbstractModelRepository;
 use TheProject\Core\Collections\UserCollection;
 use TheProject\Core\Models\User;
 
+/**
+ * Example repository: loads and saves User models in the users table.
+ *
+ * @extends AbstractModelRepository<User, UserCollection>
+ */
 class UserRepository extends AbstractModelRepository
 {
     protected function getTableName(): string

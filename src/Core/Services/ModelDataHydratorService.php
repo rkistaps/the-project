@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TheProject\Core\Services;
 
+use ReflectionNamedType;
 use ReflectionProperty;
 use TheProject\Core\Abstracts\AbstractModel;
 use TheProject\Core\Helpers\StringHelper;
@@ -25,18 +26,18 @@ class ModelDataHydratorService implements ModelDataHydratorInterface
         return $model;
     }
 
-    public function hydrateProperty(AbstractModel $model, string $property, $value): AbstractModel
+    public function hydrateProperty(AbstractModel $model, string $property, mixed $value): AbstractModel
     {
-        $reflectionProperty = new ReflectionProperty($model, $property);
+        $type = (new ReflectionProperty($model, $property))->getType();
 
-        $type = $reflectionProperty->getType()->getName();
-        switch ($type) {
-            case 'int':
-                $value = (int)$value;
-                break;
-            case 'bool':
-                $value = (bool)$value;
-                break;
+        // Database drivers return numbers as strings. Untyped and union-typed properties get the value as it is.
+        if ($type instanceof ReflectionNamedType && $value !== null) {
+            $value = match ($type->getName()) {
+                'int' => (int) $value,
+                'float' => (float) $value,
+                'bool' => (bool) $value,
+                default => $value,
+            };
         }
 
         $model->{$property} = $value;
