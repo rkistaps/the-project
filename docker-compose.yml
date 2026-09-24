@@ -19,16 +19,15 @@ services:
     networks:
       - default
     depends_on:
-      - db
+      db:
+        condition: service_healthy
   db:
-    build:
-      context: ./
-      dockerfile: ./docker-conf/MySQL.Dockerfile
+    # MySQL 8.4 LTS. Its defaults are already utf8mb4 with the utf8mb4_0900_ai_ci collation.
+    image: mysql:8.4
     ports:
       - "${DB_PORT:-3306}:3306"
     volumes:
       - persistent:/var/lib/mysql
-      - ./docker-conf/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       - default
     environment:
@@ -36,5 +35,12 @@ services:
       MYSQL_USER: ${DB_USER:-theapp}
       MYSQL_PASSWORD: ${DB_PASSWORD:-theapp}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-theapp}
+    healthcheck:
+      # Over TCP, so it fails while the entrypoint's temporary socket-only server is running
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
 volumes:
   persistent:
