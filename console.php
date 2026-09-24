@@ -1,11 +1,11 @@
 <?php
 
-use TheApp\Factories\AppFactory;
+use TheProject\Core\Factories\ApplicationFactory;
 use TheProject\Core\Factories\ContainerFactory;
 
 require __DIR__ . '/bootstrap.php';
 
-$container = ContainerFactory::build();
-$app = AppFactory::consoleAppFromContainer($container);
+$exitCode = ApplicationFactory::console(ContainerFactory::build())->run($argv);
 
-$app->run($argv);
+// 0 on success, 1 when the command isn't found or its input is invalid
+exit($exitCode);
