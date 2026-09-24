@@ -19,6 +19,10 @@ RUN apt-get update \
 # PHP's development settings: errors shown, assertions on. This image is the development environment.
 RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
+# Debian's mysql client is MariaDB's, which rejects MySQL 8.4's self-signed certificate.
+# The connection stays encrypted; only the certificate check is off, for `mysql -h db`.
+RUN printf '[client]\nssl-verify-server-cert = off\n' > /etc/mysql/conf.d/client.cnf
+
 # Composer runs inside the container (./docker-run composer install), so the host needs no PHP.
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
