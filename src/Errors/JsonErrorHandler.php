@@ -23,8 +23,7 @@ final class JsonErrorHandler implements ErrorHandlerInterface
         private JsonResponder $json,
         private ConfigInterface $config,
         private LoggerInterface $logger,
-    ) {
-    }
+    ) {}
 
     public function handle(Throwable $throwable): ResponseInterface
     {

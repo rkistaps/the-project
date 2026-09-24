@@ -21,7 +21,7 @@ final class JsonErrorHandlerTest extends TestCase
         self::assertSame(500, $response->getStatusCode());
         self::assertSame(
             '{"error":{"status":500,"message":"Internal server error"}}',
-            (string) $response->getBody()
+            (string) $response->getBody(),
         );
     }
 

@@ -23,7 +23,7 @@ abstract class AbstractModelRepository
 
     public function __construct(
         Database $database,
-        ModelDataHydratorInterface $hydrator
+        ModelDataHydratorInterface $hydrator,
     ) {
         $this->database = $database;
         $this->hydrator = $hydrator;
@@ -165,7 +165,7 @@ abstract class AbstractModelRepository
 
         $this->addConditionsToStatement(
             $query,
-            $this->buildPrimaryKeyCondition($model)
+            $this->buildPrimaryKeyCondition($model),
         );
 
         $updateData = $modelData;
@@ -200,7 +200,7 @@ abstract class AbstractModelRepository
 
     protected function getLastInsertId(): int
     {
-        return (int)$this->database->getConnection()->getPDO()->lastInsertId();
+        return (int) $this->database->getConnection()->getPDO()->lastInsertId();
     }
 
     protected function insert(array $data): bool

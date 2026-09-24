@@ -1,5 +1,6 @@
 {
   "name": "rkistaps/the-project",
+  "description": "Starter template for PHP projects with Web, API and Console apps on the-app",
   "type": "project",
   "license": "MIT",
   "authors": [
@@ -34,11 +35,14 @@
   "require-dev": {
     "phpstan/phpstan": "^2.2",
     "phpunit/phpunit": "^12.5",
-    "filp/whoops": "^2.18"
+    "filp/whoops": "^2.18",
+    "friendsofphp/php-cs-fixer": "^3.95"
   },
   "scripts": {
     "test": "phpunit",
-    "analyse": "phpstan analyse"
+    "analyse": "phpstan analyse",
+    "cs-check": "php-cs-fixer check --diff",
+    "cs-fix": "php-cs-fixer fix"
   },
   "config": {
     "platform": {

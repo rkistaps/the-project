@@ -17,8 +17,7 @@ final class JsonResponder
     public function __construct(
         private ResponseFactoryInterface $responses,
         private StreamFactoryInterface $streams,
-    ) {
-    }
+    ) {}
 
     public function respond(mixed $data, int $status = 200): ResponseInterface
     {

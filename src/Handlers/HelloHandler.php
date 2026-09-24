@@ -14,9 +14,7 @@ use TheApp\Components\Builders\ResponseBuilder;
  */
 final class HelloHandler implements RequestHandlerInterface
 {
-    public function __construct(private ResponseBuilder $responseBuilder)
-    {
-    }
+    public function __construct(private ResponseBuilder $responseBuilder) {}
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {

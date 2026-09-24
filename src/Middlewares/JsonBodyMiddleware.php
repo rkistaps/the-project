@@ -17,9 +17,7 @@ use TheProject\Http\JsonResponder;
  */
 final class JsonBodyMiddleware implements MiddlewareInterface
 {
-    public function __construct(private JsonResponder $json)
-    {
-    }
+    public function __construct(private JsonResponder $json) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

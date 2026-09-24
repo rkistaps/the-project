@@ -32,7 +32,7 @@ final class ModelDataHydratorServiceTest extends TestCase
 
         self::assertSame(
             ['id' => 1, 'username' => 'juris', 'email' => 'juris@example.com'],
-            (new ModelDataHydratorService())->extract($user)
+            (new ModelDataHydratorService())->extract($user),
         );
     }
 }
