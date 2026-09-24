@@ -1,19 +1,19 @@
 <?php
 
-define('APP_ROOT', realpath(__DIR__ . '/..'));
-
 use Psr\Http\Message\ServerRequestInterface;
 use TheApp\Apps\WebApp;
 use TheApp\Components\HttpResponseEmitter;
 use TheApp\Interfaces\RouterInterface;
 use TheProject\Core\Factories\ContainerFactory;
+use TheProject\Core\Helpers\Env;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
-require APP_ROOT . '/vendor/autoload.php';
+require __DIR__ . '/../bootstrap.php';
 
-// Debug page for uncaught errors. Whoops is a dev dependency, so a --no-dev install skips it.
-if (class_exists(Run::class)) {
+// Debug page for uncaught errors, only with APP_DEBUG on. Whoops is a dev dependency, so a
+// --no-dev install never has it, whatever APP_DEBUG says.
+if (Env::bool('APP_DEBUG') && class_exists(Run::class)) {
     $whoops = new Run();
     $whoops->pushHandler(new PrettyPageHandler());
     $whoops->register();

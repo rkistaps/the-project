@@ -13,6 +13,7 @@ parameters:
         - config
         - public
         - console.php
+        - bootstrap.php
     bootstrapFiles:
         - phpstan-bootstrap.php
     stubFiles:
