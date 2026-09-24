@@ -20,7 +20,7 @@ if (Env::bool('APP_DEBUG') && class_exists(Run::class)) {
 
 $container = ContainerFactory::build();
 
-$response = ApplicationFactory::web($container)
-    ->run($container->get(ServerRequestInterface::class));
+$request = $container->get(ServerRequestInterface::class);
+$response = ApplicationFactory::forRequest($container, $request)->run($request);
 
 $container->get(HttpResponseEmitter::class)->emit($response);
