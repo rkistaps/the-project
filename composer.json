@@ -10,10 +10,10 @@
   ],
   "autoload": {
     "psr-4": {
-      "TheProject\\": "app/"
+      "TheProject\\": "src/"
     },
     "files": [
-      "app/Core/Library/functions.php"
+      "src/Core/Library/functions.php"
     ]
   },
   "autoload-dev": {

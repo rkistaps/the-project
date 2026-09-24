@@ -9,12 +9,10 @@ parameters:
     # on config and DB rows. Level 8 keeps the null checks.
     level: 8
     paths:
-        - app
+        - src
+        - config
         - public
         - console.php
-    excludePaths:
-        # Plates templates run with $this bound to the template engine
-        - app/Templates
     bootstrapFiles:
         - phpstan-bootstrap.php
     stubFiles:
