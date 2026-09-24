@@ -1,0 +1,20 @@
+<?php
+
+use Opis\Database\Schema\CreateTable;
+use TheProject\Components\Migration;
+
+class %s extends Migration
+{
+    public function up(): void
+    {
+        // $this->getDatabase()->schema()->create('posts', function (CreateTable $table) {
+        //     $table->integer('id')->autoincrement();
+        //     $table->string('title')->notNull();
+        // });
+    }
+
+    public function down(): void
+    {
+        // $this->getDatabase()->schema()->drop('posts');
+    }
+}
