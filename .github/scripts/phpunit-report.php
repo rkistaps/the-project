@@ -51,10 +51,10 @@ $summary = sprintf("| PHPUnit | %s | %s |\n", $failedCount === 0 ? '✅' : '❌'
 
 $clover = @simplexml_load_file($cloverFile);
 if ($clover !== false) {
-    // Group statement coverage by top-level directory under src/app/ (the architectural layers).
+    // Group statement coverage by top-level directory under src/ (the architectural layers).
     $layers = [];
     foreach ($clover->xpath('//file') ?: [] as $file) {
-        if (!preg_match('#/src/app/([^/]+)/#', (string) $file['name'], $match)) {
+        if (!preg_match('#/src/([^/]+)/#', (string) $file['name'], $match)) {
             continue;
         }
         $layers[$match[1]]['statements'] = ($layers[$match[1]]['statements'] ?? 0) + (int) $file->metrics['statements'];

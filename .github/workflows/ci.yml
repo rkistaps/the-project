@@ -12,10 +12,6 @@ concurrency:
 permissions:
   contents: read
 
-defaults:
-  run:
-    working-directory: src
-
 jobs:
   phpstan:
     name: PHPStan
@@ -30,17 +26,15 @@ jobs:
           coverage: none
 
       - uses: ramsey/composer-install@v3
-        with:
-          working-directory: src
 
       # Fails only on errors missing from phpstan-baseline.neon.
       - name: Analyse
         run: |
           set +e
-          vendor/bin/phpstan analyse --memory-limit=2G --no-progress --error-format=json > ../phpstan.json
-          php ../.github/scripts/phpstan-report.php ../phpstan.json phpstan-baseline.neon ../phpstan.md
+          vendor/bin/phpstan analyse --memory-limit=2G --no-progress --error-format=json > phpstan.json
+          php .github/scripts/phpstan-report.php phpstan.json phpstan-baseline.neon phpstan.md
           status=$?
-          cat ../phpstan.md >> "$GITHUB_STEP_SUMMARY"
+          cat phpstan.md >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
       - uses: actions/upload-artifact@v4
@@ -63,16 +57,14 @@ jobs:
           coverage: pcov
 
       - uses: ramsey/composer-install@v3
-        with:
-          working-directory: src
 
       - name: Run tests
         run: |
           set +e
-          vendor/bin/phpunit tests/ --coverage-clover ../clover.xml --log-junit ../junit.xml
+          vendor/bin/phpunit tests/ --coverage-clover clover.xml --log-junit junit.xml
           status=$?
-          php ../.github/scripts/phpunit-report.php ../junit.xml ../clover.xml ../phpunit.md
-          cat ../phpunit.md >> "$GITHUB_STEP_SUMMARY"
+          php .github/scripts/phpunit-report.php junit.xml clover.xml phpunit.md
+          cat phpunit.md >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
       - uses: actions/upload-artifact@v4
@@ -89,9 +81,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    defaults:
-      run:
-        working-directory: .
     steps:
       - uses: actions/download-artifact@v4
         with:

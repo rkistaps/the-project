@@ -9,7 +9,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./src:/var/www/html
+      - ./:/var/www/html
     networks:
       - default
     depends_on:

@@ -7,13 +7,10 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <!-- Code counted in coverage reports. Templates are view files, not code under test. -->
+    <!-- Code counted in coverage reports. Templates live in templates/, outside it. -->
     <source>
         <include>
-            <directory suffix=".php">app</directory>
+            <directory suffix=".php">src</directory>
         </include>
-        <exclude>
-            <directory>app/Templates</directory>
-        </exclude>
     </source>
 </phpunit>
