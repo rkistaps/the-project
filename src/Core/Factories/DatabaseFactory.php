@@ -10,12 +10,11 @@ class DatabaseFactory
 {
     public function buildFromConfig(DatabaseConfig $config): Database
     {
-        $connection = new Connection(
-            'mysql:host=' . $config->host . ';dbname=' . $config->name,
-            $config->username,
-            $config->password
-        );
+        $dsn = 'mysql:host=' . $config->host . ';dbname=' . $config->name . ';charset=utf8mb4';
+        if ($config->port !== '') {
+            $dsn .= ';port=' . $config->port;
+        }
 
-        return new Database($connection);
+        return new Database(new Connection($dsn, $config->username, $config->password));
     }
 }
