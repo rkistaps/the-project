@@ -43,7 +43,13 @@ if ! grep -q "\"name\": \"$TEMPLATE_PACKAGE\"" composer.json; then
 fi
 
 if [[ -z "$package" ]]; then
-  read -rp 'Composer package (vendor/name, such as acme/shop): ' package
+  if ! read -rp 'Composer package (vendor/name, such as acme/shop): ' package; then
+    echo
+    echo "No answer to read: pass the names as options instead."
+    echo
+    usage
+    exit 1
+  fi
 fi
 if [[ ! "$package" =~ ^[a-z0-9]([_.-]?[a-z0-9]+)*/[a-z0-9]([_.-]?[a-z0-9]+)*$ ]]; then
   echo "\"$package\" isn't a Composer package name: use lower-case vendor/name, such as acme/shop."
@@ -53,7 +59,8 @@ fi
 # acme/shop-app -> Acme\ShopApp
 default_namespace=$(perl -e 'print join("\\", map { join("", map { ucfirst } split /[-_.]/) } split m{/}, $ARGV[0])' "$package")
 if [[ -z "$namespace" ]]; then
-  read -rp "PHP namespace [$default_namespace]: " namespace
+  # No answer (Enter, or no terminal) takes the default
+  read -rp "PHP namespace [$default_namespace]: " namespace || echo
   namespace="${namespace:-$default_namespace}"
 fi
 namespace="${namespace%\\}"
