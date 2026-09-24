@@ -1,25 +1,31 @@
 #!/usr/bin/env bash
 
-isRunning=false
-workspaceId=$(docker-compose ps -q app)
-if [[ -n "$workspaceId" ]] && docker ps -q --no-trunc | grep -q "${workspaceId}"; then
-  isRunning=true
-fi
+# Manage the Docker environment. Run without arguments for the list of commands.
+
+source "$(dirname "$0")/docker-conf/scripts.sh"
+
+usage() {
+  cat <<'USAGE'
+Usage: ./docker <command>
+
+  start     Start the containers (creates them on first run)
+  stop      Stop and remove the containers; the database volume is kept
+  restart   stop, then start
+  build     Rebuild the images, e.g. after changing docker-conf/
+  ssh       Open a shell in the app container, starting it if needed
+  logs      Follow the container logs; extra arguments go to `docker compose logs`, e.g. ./docker logs db
+  status    Show the containers and their ports
+
+Run things inside the container with ./docker-run, ./docker-test, ./docker-coverage and ./docker-analyse.
+USAGE
+}
 
 start() {
-  docker-compose up -d --force-recreate
-  isRunning=true
+  docker compose up -d
 }
 
 stop() {
-  echo "Removing containers"
-  docker-compose down --remove-orphans
-  isRunning=false
-}
-
-build() {
-  echo "Building..."
-  docker-compose build --force-rm
+  docker compose down --remove-orphans
 }
 
 restart() {
@@ -27,23 +33,37 @@ restart() {
   start
 }
 
+build() {
+  docker compose build
+}
+
 ssh() {
-  if [[ "$isRunning" == false ]]; then
+  if [[ -z "$(app_container)" ]]; then
     start
   fi
 
-  echo "Connecting to workspace"
-
-  docker exec -it "$(docker-compose ps -q app)" bash
+  docker compose exec app bash
 }
 
-if [[ -n "$1" ]]; then
-  command="$1"
-  if [[ -n "$(type -t "${command}")" ]] && [[ "$(type -t "${command}")" == function ]]; then
-    "$command" "${@:2}"
-    exit
-  else
-    echo "Command not found"
-    exit
-  fi
-fi
+logs() {
+  docker compose logs -f "$@"
+}
+
+status() {
+  docker compose ps
+}
+
+case "$1" in
+  start | stop | restart | build | ssh | logs | status)
+    "$1" "${@:2}"
+    ;;
+  "" | help | -h | --help)
+    usage
+    ;;
+  *)
+    echo "Unknown command: $1"
+    echo
+    usage
+    exit 1
+    ;;
+esac
