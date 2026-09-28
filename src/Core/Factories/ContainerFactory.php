@@ -13,7 +13,7 @@ class ContainerFactory
     public static function build(): ContainerInterface
     {
         return self::$container = (new ContainerBuilder())
-            ->addDefinitions(require APP_ROOT . '/app/Config/dependencies.php')
+            ->addDefinitions(require APP_ROOT . '/config/dependencies.php')
             ->build();
     }
 

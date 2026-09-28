@@ -21,7 +21,7 @@ use TheProject\Core\Services\ModelDataHydratorService;
 use TheProject\Core\Structures\DatabaseConfig;
 
 return [
-    ConfigInterface::class => fn(ConfigFactory $configFactory) => $configFactory->fromArray(require APP_ROOT . '/app/Config/config.php'),
+    ConfigInterface::class => fn(ConfigFactory $configFactory) => $configFactory->fromArray(require APP_ROOT . '/config/config.php'),
     ServerRequestInterface::class => fn() => ServerRequestFactory::buildWithGlobals(),
     ResponseFactoryInterface::class => fn(Psr17Factory $factory) => $factory,
     StreamFactoryInterface::class => fn(Psr17Factory $factory) => $factory,

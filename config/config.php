@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'templatePath' => APP_ROOT . '/app/Templates',
+    'templatePath' => APP_ROOT . '/templates',
     'database' => [
         'host' => 'db',
         'port' => '',

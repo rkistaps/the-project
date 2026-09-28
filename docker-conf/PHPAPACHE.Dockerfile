@@ -23,5 +23,5 @@ RUN a2enmod rewrite
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy stuff into container
-COPY src /var/www/html/
+COPY . /var/www/html/
 COPY ./docker-conf/httpd.conf /etc/apache2/sites-available/000-default.conf
