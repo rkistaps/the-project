@@ -12,13 +12,13 @@ use Dotenv\Dotenv;
 final class Env
 {
     /**
-     * Load the .env file in the directory, if there is one. Variables that are already set in the
-     * real environment (Docker, CI, the shell) keep their values.
+     * Load a .env file from the directory, if there is one. Variables that are already set, in the
+     * real environment (Docker, CI, the shell) or by an earlier load(), keep their values.
      */
-    public static function load(string $directory): void
+    public static function load(string $directory, string $file = '.env'): void
     {
         // "Unsafe" means it also reads and writes getenv()/putenv(), which is how it sees the real environment.
-        Dotenv::createUnsafeImmutable($directory)->safeLoad();
+        Dotenv::createUnsafeImmutable($directory, $file)->safeLoad();
     }
 
     public static function get(string $name, ?string $default = null): ?string

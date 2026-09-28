@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace TheProject\Tests\Integration;
 
-use PHPUnit\Framework\TestCase;
 use TheProject\Core\Factories\ApplicationFactory;
-use TheProject\Core\Factories\ContainerFactory;
+use TheProject\Tests\Support\AppTestCase;
 
 /**
  * Runs commands through the app as console.php builds it.
  */
-final class ConsoleAppTest extends TestCase
+final class ConsoleAppTest extends AppTestCase
 {
     public function testCallableCommandGetsOptionsByName(): void
     {
@@ -43,6 +42,6 @@ final class ConsoleAppTest extends TestCase
 
     private function runConsole(array $argv): int
     {
-        return ApplicationFactory::console(ContainerFactory::build())->run($argv);
+        return ApplicationFactory::console($this->container())->run($argv);
     }
 }

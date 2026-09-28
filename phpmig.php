@@ -8,7 +8,7 @@ use Phpmig\Adapter\PDO\Sql;
 use Psr\Container\ContainerInterface;
 use TheProject\Core\Factories\ContainerFactory;
 
-require __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/bootstrap.php';
 
 $app = ContainerFactory::build();
 
