@@ -1,0 +1,283 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Class Spiral\\Database\\Database not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Components/Migration.php
+
+		-
+			message: '#^Method TheProject\\Components\\Migration\:\:getDatabase\(\) has invalid return type Spiral\\Database\\Database\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Components/Migration.php
+
+		-
+			message: '#^Class TheProject\\Handlers\\Demo\\DemoDbHandler not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Config/RouteConfigurators/DemoRouteConfigurator.php
+
+		-
+			message: '#^Class TheProject\\Handlers\\Demo\\DemoHandler not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: app/Config/RouteConfigurators/DemoRouteConfigurator.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:filter\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:first\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:first\(\) has parameter \$default with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:firstWhere\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:firstWhere\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:firstWhere\(\) has parameter \$operator with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:firstWhere\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:merge\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:pluck\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:pluck\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:pluck\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:random\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:random\(\) has parameter \$number with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:slice\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:sortBy\(\) has parameter \$callback with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:where\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:where\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:where\(\) has parameter \$operator with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:where\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModel\:\:__set\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModel.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModel\:\:__set\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModel.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:firstWhere\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:firstWhere\(\) has parameter \$operator with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:firstWhere\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:random\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:random\(\) has parameter \$number with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:reduce\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:reduce\(\) has parameter \$initial with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:where\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:where\(\) has parameter \$operator with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelCollection\:\:where\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Abstracts/AbstractModelCollection.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelRepository\:\:addConditionsToStatement\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractModelRepository.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelRepository\:\:createBlankModel\(\) should return TheProject\\Core\\Abstracts\\AbstractModel but returns object\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Core/Abstracts/AbstractModelRepository.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelRepository\:\:findAll\(\) should return TheProject\\Core\\Abstracts\\AbstractModelCollection but returns object\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Core/Abstracts/AbstractModelRepository.php
+
+		-
+			message: '#^Method TheProject\\Core\\Abstracts\\AbstractModelRepository\:\:truncate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Abstracts/AbstractModelRepository.php
+
+		-
+			message: '#^Method TheProject\\Core\\Interfaces\\ModelDataHydratorInterface\:\:hydrateProperty\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Interfaces/ModelDataHydratorInterface.php
+
+		-
+			message: '#^Method TheProject\\Core\\Repositories\\UserRepository\:\:findByUsername\(\) should return TheProject\\Core\\Models\\User\|null but returns TheProject\\Core\\Abstracts\\AbstractModel\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Core/Repositories/UserRepository.php
+
+		-
+			message: '#^Cannot call method getName\(\) on ReflectionType\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Core/Services/ModelDataHydratorService.php
+
+		-
+			message: '#^Method TheProject\\Core\\Services\\ModelDataHydratorService\:\:hydrateProperty\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Core/Services/ModelDataHydratorService.php
+
+		-
+			message: '#^Method TheProject\\Core\\Structures\\DatabaseConfig\:\:fromArray\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Core/Structures/DatabaseConfig.php
+
+		-
+			message: '#^Access to an undefined property TheProject\\Core\\Abstracts\\AbstractModel\:\:\$password\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Handlers/Command/Test/CreateUserCommandHandler.php
+
+		-
+			message: '#^Access to an undefined property TheProject\\Core\\Abstracts\\AbstractModel\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Handlers/Command/Test/CreateUserCommandHandler.php
+
+		-
+			message: '#^Access to an undefined property TheProject\\Handlers\\Request\\Demo\\ParameterRequestDemoHandler\:\:\$template\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Handlers/Request/Demo/ParameterRequestDemoHandler.php
