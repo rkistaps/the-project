@@ -53,19 +53,27 @@ abstract class AbstractModelRepository
     {
         $collectionClassName = $this->getCollectionClassName();
 
-        $models = $this
+        $rows = $this
             ->buildSelect($condition)
-            ->fetchClass($this->getModelClassName())
+            ->fetchAssoc()
             ->all();
 
-        return new $collectionClassName($models);
+        return new $collectionClassName(array_map(fn(array $row) => $this->hydrateRow($row), $rows));
     }
 
     public function findOne(array $condition = []): ?AbstractModel
     {
-        $result = $this->buildSelect($condition)->fetchClass($this->getModelClassName())->first();
+        $row = $this->buildSelect($condition)->fetchAssoc()->first();
 
-        return $result ?: null;
+        return $row ? $this->hydrateRow($row) : null;
+    }
+
+    /**
+     * Turn a row (snake_case column => value) into a model, casting values to the property types
+     */
+    protected function hydrateRow(array $row): AbstractModel
+    {
+        return $this->hydrator->hydrate($this->createBlankModel(), $row);
     }
 
     public function findById(int $id): ?AbstractModel
@@ -207,12 +215,14 @@ abstract class AbstractModelRepository
 
     public function findRandom(array $condition = []): ?AbstractModel
     {
-        return $this
+        $row = $this
             ->buildQuery($condition)
             ->orderBy(fn($expr) => $expr->op('rand()'))
             ->select()
-            ->fetchClass($this->getModelClassName())
+            ->fetchAssoc()
             ->first();
+
+        return $row ? $this->hydrateRow($row) : null;
     }
 
     public function truncate()

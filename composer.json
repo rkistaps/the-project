@@ -11,10 +11,7 @@
   "autoload": {
     "psr-4": {
       "TheProject\\": "src/"
-    },
-    "files": [
-      "src/Core/Library/functions.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
