@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Run PHPUnit in the app container. Arguments go to PHPUnit:
+#   ./docker-test --filter WebAppTest
+
+source "$(dirname "$0")/docker-conf/scripts.sh"
+
+require_running
+
+app_exec vendor/bin/phpunit "$@"

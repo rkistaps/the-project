@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Run PHPUnit with coverage in the app container: a text summary here, and an HTML report in
+# coverage/index.html. Arguments go to PHPUnit:
+#   ./docker-coverage --filter WebAppTest
+
+source "$(dirname "$0")/docker-conf/scripts.sh"
+
+require_running
+
+if ! app_exec php -m | grep -qi '^pcov$'; then
+  echo "Error: the pcov coverage driver is not installed in the app container."
+  echo "Rebuild the image with: ./docker build && ./docker restart"
+  exit 1
+fi
+
+app_exec vendor/bin/phpunit --coverage-text --coverage-html coverage "$@"
+status=$?
+
+echo
+echo "HTML report: coverage/index.html"
+exit $status

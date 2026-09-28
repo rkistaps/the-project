@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Run a command in the app container, from the project root.
+#
+# Console commands don't need the ./run prefix; it's added for you:
+#   ./docker-run test --lorem=ipsum        -> ./run test --lorem=ipsum
+# Paths and common tools run as given:
+#   ./docker-run composer install
+#   ./docker-run vendor/bin/phpmig migrate
+
+source "$(dirname "$0")/docker-conf/scripts.sh"
+
+if [[ $# -eq 0 ]]; then
+  cat <<'USAGE'
+Usage: ./docker-run <command> [args...]
+
+  ./docker-run test --lorem=ipsum            Console command (./run is added)
+  ./docker-run composer install              Tools (composer, php, bash, sh, mysql) run as given
+  ./docker-run vendor/bin/phpmig migrate     So does anything with a / in it
+USAGE
+  exit 1
+fi
+
+require_running
+
+case "$1" in
+  */* | composer | php | bash | sh | mysql)
+    app_exec "$@"
+    ;;
+  *)
+    app_exec ./run "$@"
+    ;;
+esac
