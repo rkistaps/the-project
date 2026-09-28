@@ -34,7 +34,8 @@
   },
   "require-dev": {
     "phpstan/phpstan": "^2.2",
-    "phpunit/phpunit": "^12.5"
+    "phpunit/phpunit": "^12.5",
+    "filp/whoops": "^2.18"
   },
   "scripts": {
     "test": "phpunit",
