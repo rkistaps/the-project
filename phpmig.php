@@ -17,5 +17,7 @@ return new ArrayObject([
     // creates on first use. So every database knows its own state, and a fresh clone starts with none run.
     'phpmig.adapter' => new Sql($app->get(Database::class)->getConnection()->getPDO(), 'migrations'),
     'phpmig.migrations_path' => __DIR__ . '/migrations',
+    // What `phpmig generate` writes: a migration on this project's base class, with the database at hand
+    'phpmig.migrations_template_path' => __DIR__ . '/migrations/.template',
     ContainerInterface::class => $app,
 ]);
