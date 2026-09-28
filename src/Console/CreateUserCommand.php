@@ -16,9 +16,7 @@ use TheProject\Core\Repositories\UserRepository;
  */
 final class CreateUserCommand implements CommandHandlerInterface
 {
-    public function __construct(private UserRepository $users)
-    {
-    }
+    public function __construct(private UserRepository $users) {}
 
     public function handle(array $params = []): void
     {

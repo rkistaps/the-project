@@ -19,8 +19,7 @@ final class HomeHandler implements RequestHandlerInterface
     public function __construct(
         private Engine $templates,
         private ResponseBuilder $responseBuilder,
-    ) {
-    }
+    ) {}
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {

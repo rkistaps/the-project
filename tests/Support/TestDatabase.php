@@ -54,7 +54,7 @@ final class TestDatabase
             self::$unavailable = sprintf(
                 'Can\'t use the test database "%s": %s. ./docker start creates it along with a new database volume; see docker-conf/mysql-init for an existing one',
                 $name,
-                $exception->getMessage()
+                $exception->getMessage(),
             );
             Assert::markTestSkipped(self::$unavailable);
         }

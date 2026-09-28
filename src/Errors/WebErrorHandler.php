@@ -29,8 +29,7 @@ final class WebErrorHandler implements ErrorHandlerInterface
         private Engine $templates,
         private ResponseFactoryInterface $responses,
         private LoggerInterface $logger,
-    ) {
-    }
+    ) {}
 
     public function handle(Throwable $throwable): ResponseInterface
     {

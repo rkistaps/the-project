@@ -18,8 +18,7 @@ final class ShowUserHandler implements RequestHandlerInterface
     public function __construct(
         private UserRepository $users,
         private JsonResponder $json,
-    ) {
-    }
+    ) {}
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
