@@ -1,6 +1,6 @@
-# Known errors are listed in the baseline. CI fails only on errors not listed here.
-# When you fix one, PHPStan reports the stale entry: regenerate with
-#   ./vendor/bin/phpstan analyse --generate-baseline phpstan-baseline.neon --allow-empty-baseline
+# phpstan-baseline.neon is empty: fix new errors instead of adding them to it. If a baseline is
+# ever needed again (say, after raising the level), generate it with
+#   ./docker-analyse --generate-baseline phpstan-baseline.neon --allow-empty-baseline
 includes:
     - phpstan-baseline.neon
 

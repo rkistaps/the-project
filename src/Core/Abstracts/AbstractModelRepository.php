@@ -10,6 +10,12 @@ use Opis\Database\SQL\BaseStatement;
 use Opis\Database\SQL\Query;
 use TheProject\Core\Interfaces\ModelDataHydratorInterface;
 
+/**
+ * Loads and saves one model class in one table.
+ *
+ * @template TModel of AbstractModel
+ * @template TCollection of AbstractModelCollection
+ */
 abstract class AbstractModelRepository
 {
     protected Database $database;
@@ -25,10 +31,19 @@ abstract class AbstractModelRepository
 
     abstract protected function getTableName(): string;
 
+    /**
+     * @return class-string<TModel>
+     */
     abstract protected function getModelClassName(): string;
 
+    /**
+     * @return class-string<TCollection>
+     */
     abstract protected function getCollectionClassName(): string;
 
+    /**
+     * @return TModel
+     */
     public function createModel(array $properties = [], bool $persistent = false): AbstractModel
     {
         $model = $this->createBlankModel();
@@ -42,13 +57,19 @@ abstract class AbstractModelRepository
         return $model;
     }
 
+    /**
+     * @return TModel
+     */
     protected function createBlankModel(): AbstractModel
     {
         $modelClass = $this->getModelClassName();
 
-        return new $modelClass;
+        return new $modelClass();
     }
 
+    /**
+     * @return TCollection
+     */
     public function findAll(array $condition = []): AbstractModelCollection
     {
         $collectionClassName = $this->getCollectionClassName();
@@ -61,6 +82,9 @@ abstract class AbstractModelRepository
         return new $collectionClassName(array_map(fn(array $row) => $this->hydrateRow($row), $rows));
     }
 
+    /**
+     * @return TModel|null
+     */
     public function findOne(array $condition = []): ?AbstractModel
     {
         $row = $this->buildSelect($condition)->fetchAssoc()->first();
@@ -70,12 +94,17 @@ abstract class AbstractModelRepository
 
     /**
      * Turn a row (snake_case column => value) into a model, casting values to the property types
+     *
+     * @return TModel
      */
     protected function hydrateRow(array $row): AbstractModel
     {
         return $this->hydrator->hydrate($this->createBlankModel(), $row);
     }
 
+    /**
+     * @return TModel|null
+     */
     public function findById(int $id): ?AbstractModel
     {
         return $this->findOne(['id' => $id]);
@@ -108,9 +137,11 @@ abstract class AbstractModelRepository
     }
 
     /**
-     * @param AbstractModel $model
-     * @param array $properties
-     * @return AbstractModel
+     * Insert a new model, or update an existing one (only the given properties, if any)
+     *
+     * @param TModel $model
+     * @param string[] $properties
+     * @return TModel
      */
     public function saveModel(AbstractModel $model, array $properties = []): AbstractModel
     {
@@ -119,6 +150,11 @@ abstract class AbstractModelRepository
             : $this->updateModel($model, $properties);
     }
 
+    /**
+     * @param TModel $model
+     * @param string[] $properties
+     * @return TModel
+     */
     protected function updateModel(AbstractModel $model, array $properties = []): AbstractModel
     {
         $modelData = $this->hydrator->extract($model);
@@ -147,6 +183,10 @@ abstract class AbstractModelRepository
         return $model;
     }
 
+    /**
+     * @param TModel $model
+     * @return TModel
+     */
     protected function insertModel(AbstractModel $model): AbstractModel
     {
         $data = $this->hydrator->extract($model);
@@ -168,7 +208,7 @@ abstract class AbstractModelRepository
         return $this->database->insert($data)->into($this->getTableName());
     }
 
-    protected function addConditionsToStatement(BaseStatement $statement, array $conditions = [])
+    protected function addConditionsToStatement(BaseStatement $statement, array $conditions = []): void
     {
         foreach ($conditions as $key => $value) {
             if (is_array($value)) {
@@ -213,6 +253,9 @@ abstract class AbstractModelRepository
         return $query->delete();
     }
 
+    /**
+     * @return TModel|null
+     */
     public function findRandom(array $condition = []): ?AbstractModel
     {
         $row = $this
@@ -225,7 +268,7 @@ abstract class AbstractModelRepository
         return $row ? $this->hydrateRow($row) : null;
     }
 
-    public function truncate()
+    public function truncate(): void
     {
         $this->database->schema()->truncate($this->getTableName());
     }

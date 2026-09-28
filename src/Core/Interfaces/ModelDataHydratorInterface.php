@@ -9,26 +9,25 @@ use TheProject\Core\Abstracts\AbstractModel;
 interface ModelDataHydratorInterface
 {
     /**
-     * Hydrate model with data from array
-     * @param AbstractModel $model
-     * @param array $data
-     * @return AbstractModel
+     * Set the model's properties from an array with snake_case keys, such as a database row
+     *
+     * @template T of AbstractModel
+     * @param T $model
+     * @return T The same model
      */
     public function hydrate(AbstractModel $model, array $data): AbstractModel;
 
     /**
-     * Extract data from model to array
-     * @param AbstractModel $model
-     * @return array
+     * The model's properties as an array with snake_case keys
      */
     public function extract(AbstractModel $model): array;
 
     /**
-     * Hydrate single property
-     * @param AbstractModel $model
-     * @param string $property
-     * @param $value
-     * @return AbstractModel
+     * Set one property, cast to its declared type
+     *
+     * @template T of AbstractModel
+     * @param T $model
+     * @return T The same model
      */
-    public function hydrateProperty(AbstractModel $model, string $property, $value): AbstractModel;
+    public function hydrateProperty(AbstractModel $model, string $property, mixed $value): AbstractModel;
 }
