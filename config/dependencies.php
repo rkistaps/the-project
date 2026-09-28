@@ -7,12 +7,14 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Log\LoggerInterface;
 use TheApp\Factories\ConfigFactory;
 use TheApp\Interfaces\ConfigInterface;
 use TheProject\Core\Factories\DatabaseFactory;
 use TheProject\Core\Factories\ServerRequestFactory;
 use TheProject\Core\Factories\TemplateEngineFactory;
 use TheProject\Core\Interfaces\ModelDataHydratorInterface;
+use TheProject\Core\Logging\ErrorLogLogger;
 use TheProject\Core\Services\ModelDataHydratorService;
 use TheProject\Core\Structures\DatabaseConfig;
 
@@ -24,5 +26,6 @@ return [
     Engine::class => fn(TemplateEngineFactory $factory, ConfigInterface $config) => $factory->build($config),
     DatabaseConfig::class => fn(ConfigInterface $config) => DatabaseConfig::fromArray($config->get('database', [])),
     Database::class => fn(DatabaseFactory $factory, DatabaseConfig $config) => $factory->buildFromConfig($config),
+    LoggerInterface::class => fn(ErrorLogLogger $logger) => $logger,
     ModelDataHydratorInterface::class => fn(ContainerInterface $container) => $container->get(ModelDataHydratorService::class),
 ];
