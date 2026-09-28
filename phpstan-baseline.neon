@@ -1,30 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Class Spiral\\Database\\Database not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/Components/Migration.php
-
-		-
-			message: '#^Method TheProject\\Components\\Migration\:\:getDatabase\(\) has invalid return type Spiral\\Database\\Database\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/Components/Migration.php
-
-		-
-			message: '#^Class TheProject\\Handlers\\Demo\\DemoDbHandler not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/Config/RouteConfigurators/DemoRouteConfigurator.php
-
-		-
-			message: '#^Class TheProject\\Handlers\\Demo\\DemoHandler not found\.$#'
-			identifier: class.notFound
-			count: 2
-			path: src/Config/RouteConfigurators/DemoRouteConfigurator.php
-
-		-
 			message: '#^Method TheProject\\Core\\Abstracts\\AbstractCollection\:\:filter\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -263,21 +239,3 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: src/Core/Structures/DatabaseConfig.php
-
-		-
-			message: '#^Access to an undefined property TheProject\\Core\\Abstracts\\AbstractModel\:\:\$password\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Handlers/Command/Test/CreateUserCommandHandler.php
-
-		-
-			message: '#^Access to an undefined property TheProject\\Core\\Abstracts\\AbstractModel\:\:\$username\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Handlers/Command/Test/CreateUserCommandHandler.php
-
-		-
-			message: '#^Access to an undefined property TheProject\\Handlers\\Request\\Demo\\ParameterRequestDemoHandler\:\:\$template\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Handlers/Request/Demo/ParameterRequestDemoHandler.php

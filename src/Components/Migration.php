@@ -2,9 +2,12 @@
 
 namespace TheProject\Components;
 
+use Opis\Database\Database;
 use Psr\Container\ContainerInterface;
-use Spiral\Database\Database;
 
+/**
+ * Base class for migrations: gives them the app's container and database.
+ */
 class Migration extends \Phpmig\Migration\Migration
 {
     public function getContainer(): ContainerInterface
