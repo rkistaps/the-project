@@ -7,13 +7,12 @@ namespace TheProject\Tests\Integration;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use TheApp\Apps\WebApp;
 use TheApp\Exceptions\NoRouteMatchException;
-use TheApp\Interfaces\RouterInterface;
+use TheProject\Core\Factories\ApplicationFactory;
 use TheProject\Core\Factories\ContainerFactory;
 
 /**
- * Runs requests through the real container and router, as public/index.php does.
+ * Runs requests through the app as public/index.php builds it.
  */
 final class WebAppTest extends TestCase
 {
@@ -50,6 +49,6 @@ final class WebAppTest extends TestCase
         $container = ContainerFactory::build();
         $request = (new Psr17Factory())->createServerRequest('GET', $path);
 
-        return $container->get(WebApp::class)->run($request, $container->get(RouterInterface::class));
+        return ApplicationFactory::web($container)->run($request);
     }
 }

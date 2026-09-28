@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace TheProject\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
-use TheApp\Factories\AppFactory;
+use TheProject\Core\Factories\ApplicationFactory;
 use TheProject\Core\Factories\ContainerFactory;
 
 /**
- * Runs commands through the real container, as console.php does.
+ * Runs commands through the app as console.php builds it.
  */
 final class ConsoleAppTest extends TestCase
 {
@@ -43,6 +43,6 @@ final class ConsoleAppTest extends TestCase
 
     private function runConsole(array $argv): int
     {
-        return AppFactory::consoleAppFromContainer(ContainerFactory::build())->run($argv);
+        return ApplicationFactory::console(ContainerFactory::build())->run($argv);
     }
 }
