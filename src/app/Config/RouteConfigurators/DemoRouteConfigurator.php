@@ -13,7 +13,7 @@ use TheProject\Middlewares\RandomAccessMiddleware;
 class DemoRouteConfigurator implements RouterConfiguratorInterface
 {
     private const BASE_PATH = '/demo';
-    public function configureRouter(Router $router)
+    public function configureRouter(Router $router): void
     {
         // callback request handler
         $router->get(self::BASE_PATH . '/',

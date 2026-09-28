@@ -14,7 +14,7 @@ class CreateUserCommandHandler implements CommandHandlerInterface
         $this->repository = $userRepository;
     }
 
-    public function handle(array $params = [])
+    public function handle(array $params = []): void
     {
         $model = $this->repository->createModel();
         $model->username = uniqid('User ');

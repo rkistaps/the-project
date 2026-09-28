@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Psr\Container\ContainerInterface;
-use TheApp\Apps\App;
+use TheProject\Core\Factories\ContainerFactory;
 
 function getContainer(): ContainerInterface
 {
-    return App::getContainer();
+    return ContainerFactory::getContainer();
 }

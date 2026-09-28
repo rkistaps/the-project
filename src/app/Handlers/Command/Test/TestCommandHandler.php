@@ -6,7 +6,7 @@ use TheApp\Interfaces\CommandHandlerInterface;
 
 class TestCommandHandler implements CommandHandlerInterface
 {
-    public function handle(array $params = [])
+    public function handle(array $params = []): void
     {
         echo 'Command handler with params: ' . print_r($params, true);
     }

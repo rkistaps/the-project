@@ -2,9 +2,9 @@
 
 define('APP_ROOT', realpath(__DIR__ . '/..'));
 
-use Jasny\HttpMessage\Emitter;
 use Psr\Http\Message\ServerRequestInterface;
 use TheApp\Apps\WebApp;
+use TheApp\Components\HttpResponseEmitter;
 use TheApp\Interfaces\RouterInterface;
 use TheProject\Core\Factories\ContainerFactory;
 
@@ -18,5 +18,5 @@ $router = $container->get(RouterInterface::class);
 $app = $container->get(WebApp::class);
 $response = $app->run($request, $router);
 
-$emitter = $container->get(Emitter::class);
+$emitter = $container->get(HttpResponseEmitter::class);
 $emitter->emit($response);
