@@ -9,8 +9,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use TheApp\Apps\ConsoleApp;
 use TheApp\Apps\WebApp;
 use TheApp\Factories\AppFactory;
+use TheApp\Interfaces\ConfigInterface;
 use TheProject\Console\AppCommands;
 use TheProject\Errors\JsonErrorHandler;
+use TheProject\Errors\WebErrorHandler;
 use TheProject\Routes\ApiRoutes;
 use TheProject\Routes\WebRoutes;
 
@@ -35,10 +37,16 @@ final class ApplicationFactory
 
     public static function web(ContainerInterface $container): WebApp
     {
-        return AppFactory::webAppFromContainer($container)
+        $app = AppFactory::webAppFromContainer($container)
             ->withRouterConfigurators([
                 WebRoutes::class,
             ]);
+
+        // With APP_DEBUG on, exceptions are left to the Whoops debug page (public/index.php).
+        // Otherwise they become 404/405/500 pages.
+        return $container->get(ConfigInterface::class)->get('debug')
+            ? $app
+            : $app->withErrorHandler(WebErrorHandler::class);
     }
 
     public static function api(ContainerInterface $container): WebApp

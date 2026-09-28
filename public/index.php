@@ -10,12 +10,17 @@ use Whoops\Run;
 
 require __DIR__ . '/../bootstrap.php';
 
-// Debug page for uncaught errors, only with APP_DEBUG on. Whoops is a dev dependency, so a
-// --no-dev install never has it, whatever APP_DEBUG says.
-if (Env::bool('APP_DEBUG') && class_exists(Run::class)) {
-    $whoops = new Run();
-    $whoops->pushHandler(new PrettyPageHandler());
-    $whoops->register();
+if (Env::bool('APP_DEBUG')) {
+    // Debug page for uncaught errors. Whoops is a dev dependency, so a --no-dev install
+    // never has it, whatever APP_DEBUG says.
+    if (class_exists(Run::class)) {
+        $whoops = new Run();
+        $whoops->pushHandler(new PrettyPageHandler());
+        $whoops->register();
+    }
+} else {
+    // The apps' error handlers render error pages; anything that still escapes them is logged, never shown
+    ini_set('display_errors', '0');
 }
 
 $container = ContainerFactory::build();
