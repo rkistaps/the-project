@@ -10,6 +10,11 @@ services:
       - "443:443"
     volumes:
       - ./:/var/www/html
+    environment:
+      # The app reaches the database over the Compose network. These win over DB_HOST/DB_PORT
+      # in .env, which describe how the host reaches it.
+      DB_HOST: db
+      DB_PORT: "3306"
     networks:
       - default
     depends_on:
@@ -25,10 +30,11 @@ services:
       - ./docker-conf/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       - default
+    # Compose reads these from .env
     environment:
-      MYSQL_USER: theapp
-      MYSQL_PASSWORD: theapp
-      MYSQL_DATABASE: theapp
-      MYSQL_ROOT_PASSWORD: theapp
+      MYSQL_DATABASE: ${DB_NAME:-theapp}
+      MYSQL_USER: ${DB_USER:-theapp}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-theapp}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-theapp}
 volumes:
   persistent:

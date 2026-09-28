@@ -4,9 +4,7 @@ use \Phpmig\Adapter;
 use Psr\Container\ContainerInterface;
 use TheProject\Core\Factories\ContainerFactory;
 
-define('APP_ROOT', realpath(__DIR__));
-
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/bootstrap.php';
 
 $container = new ArrayObject();
 
