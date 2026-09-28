@@ -169,6 +169,40 @@ jobs:
           path: phpunit.md
           if-no-files-found: ignore
 
+  # init:start. ./init removes this job along with itself.
+  # Runs ./init on a copy of the template and checks the result, so the template can't drift from the script.
+  init:
+    name: Init script
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Initialise a copy
+        run: |
+          cp -r . "$RUNNER_TEMP/project"
+          cd "$RUNNER_TEMP/project"
+          ./init --package=acme/shop-app --namespace='Acme\ShopApp'
+          test ! -e init
+          if git grep -n -I -e 'TheProject' -e 'the-project' -e 'theapp' -- . ':!composer.lock'; then
+            echo "::error::./init left the template's names in the files above"
+            exit 1
+          fi
+
+      - name: Check the copy
+        working-directory: ${{ runner.temp }}/project
+        run: |
+          composer install --no-interaction --no-progress
+          composer validate --strict
+          vendor/bin/phpstan analyse --no-progress --memory-limit=2G
+          vendor/bin/phpunit
+          vendor/bin/php-cs-fixer check --show-progress=none
+  # init:end
+
   report:
     name: PR summary comment
     if: always() && github.event_name == 'pull_request'
