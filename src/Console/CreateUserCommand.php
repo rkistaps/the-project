@@ -18,7 +18,7 @@ final class CreateUserCommand implements CommandHandlerInterface
 {
     public function __construct(private UserRepository $users) {}
 
-    public function handle(array $params = []): void
+    public function handle(array $params = []): int
     {
         foreach (['username', 'email'] as $option) {
             if (!is_string($params[$option] ?? null) || $params[$option] === '') {
@@ -33,5 +33,7 @@ final class CreateUserCommand implements CommandHandlerInterface
         ], true);
 
         echo sprintf('Created user #%d %s', $user->id, $params['username']) . PHP_EOL;
+
+        return 0;
     }
 }

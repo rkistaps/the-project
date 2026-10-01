@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba824881b9a090e05fad741ffa68e958",
+    "content-hash": "d9d2a595bd4616a0ee332054781884f8",
     "packages": [
         {
             "name": "davedevelopment/phpmig",
@@ -200,16 +200,16 @@
         },
         {
             "name": "laravel/serializable-closure",
-            "version": "v2.0.16",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "7cfc24e4fa2cca045fb8dd2a797a2b2b13b655ed"
+                "reference": "2d5869a838bbcf37e0d8b0568fc41914e81374b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/7cfc24e4fa2cca045fb8dd2a797a2b2b13b655ed",
-                "reference": "7cfc24e4fa2cca045fb8dd2a797a2b2b13b655ed",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/2d5869a838bbcf37e0d8b0568fc41914e81374b5",
+                "reference": "2d5869a838bbcf37e0d8b0568fc41914e81374b5",
                 "shasum": ""
             },
             "require": {
@@ -257,7 +257,7 @@
                 "issues": "https://github.com/laravel/serializable-closure/issues",
                 "source": "https://github.com/laravel/serializable-closure"
             },
-            "time": "2026-08-18T20:28:54+00:00"
+            "time": "2026-09-22T14:32:34+00:00"
         },
         {
             "name": "league/plates",
@@ -1062,16 +1062,16 @@
         },
         {
             "name": "rkistaps/the-app",
-            "version": "v0.5.0",
+            "version": "v0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rkistaps/the-app.git",
-                "reference": "6b2b3fad12a9494ce6f27501008c93b2825112fe"
+                "reference": "dbe34ac6499b8dbe3571b41bc3155c8a1d20813f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/6b2b3fad12a9494ce6f27501008c93b2825112fe",
-                "reference": "6b2b3fad12a9494ce6f27501008c93b2825112fe",
+                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/dbe34ac6499b8dbe3571b41bc3155c8a1d20813f",
+                "reference": "dbe34ac6499b8dbe3571b41bc3155c8a1d20813f",
                 "shasum": ""
             },
             "require": {
@@ -1094,8 +1094,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "TheApp\\": "src/",
-                    "TheApp\\Tests\\": "tests/"
+                    "TheApp\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1111,9 +1110,9 @@
             "description": "PHP micro-framework that routes PSR-7 requests through PSR-15 middleware and runs console commands",
             "support": {
                 "issues": "https://github.com/rkistaps/the-app/issues",
-                "source": "https://github.com/rkistaps/the-app/tree/v0.5.0"
+                "source": "https://github.com/rkistaps/the-app/tree/v0.8.0"
             },
-            "time": "2026-09-16T19:27:57+00:00"
+            "time": "2026-10-01T16:12:55+00:00"
         },
         {
             "name": "symfony/config",

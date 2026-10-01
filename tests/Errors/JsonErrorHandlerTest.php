@@ -6,6 +6,7 @@ namespace TheProject\Tests\Errors;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\NullLogger;
 use RuntimeException;
 use TheApp\Components\ArrayConfig;
@@ -16,7 +17,7 @@ final class JsonErrorHandlerTest extends TestCase
 {
     public function testServerErrorHidesDetailsWithoutDebug(): void
     {
-        $response = $this->handler(debug: false)->handle(new RuntimeException('secret path /var/www'));
+        $response = $this->handler(debug: false)->handle(new RuntimeException('secret path /var/www'), $this->request());
 
         self::assertSame(500, $response->getStatusCode());
         self::assertSame(
@@ -27,7 +28,7 @@ final class JsonErrorHandlerTest extends TestCase
 
     public function testServerErrorShowsDetailsWithDebug(): void
     {
-        $response = $this->handler(debug: true)->handle(new RuntimeException('Something broke'));
+        $response = $this->handler(debug: true)->handle(new RuntimeException('Something broke'), $this->request());
 
         $debug = json_decode((string) $response->getBody(), true)['error']['debug'];
         self::assertSame(RuntimeException::class, $debug['exception']);
@@ -40,5 +41,10 @@ final class JsonErrorHandlerTest extends TestCase
         $factory = new Psr17Factory();
 
         return new JsonErrorHandler(new JsonResponder($factory, $factory), new ArrayConfig(['debug' => $debug]), new NullLogger());
+    }
+
+    private function request(): ServerRequestInterface
+    {
+        return (new Psr17Factory())->createServerRequest('GET', '/api/users');
     }
 }
