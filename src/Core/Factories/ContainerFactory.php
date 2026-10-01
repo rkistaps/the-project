@@ -2,12 +2,12 @@
 
 namespace TheProject\Core\Factories;
 
+use DI\Container;
 use DI\ContainerBuilder;
-use Psr\Container\ContainerInterface;
 
 class ContainerFactory
 {
-    public static function build(): ContainerInterface
+    public static function build(): Container
     {
         return (new ContainerBuilder())
             ->addDefinitions(require APP_ROOT . '/config/dependencies.php')

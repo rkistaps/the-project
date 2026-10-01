@@ -28,7 +28,6 @@ abstract class AppTestCase extends TestCase
     {
         if ($this->container === null) {
             $container = ContainerFactory::build();
-            self::assertInstanceOf(Container::class, $container);
 
             $this->logger = new ArrayLogger();
             $container->set(ConfigInterface::class, new ArrayConfig(['debug' => $this->debug] + require APP_ROOT . '/config/config.php'));

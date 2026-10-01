@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TheProject\Core\Factories;
 
-use Psr\Container\ContainerInterface;
+use DI\Container;
 use Psr\Http\Message\ServerRequestInterface;
 use TheApp\Apps\ConsoleApp;
 use TheApp\Apps\WebApp;
@@ -26,7 +26,7 @@ final class ApplicationFactory
      * The app that serves the request: the API for /api and everything under it, the web app otherwise.
      * They are separate apps because each has its own error handler: JSON errors for the API, pages for the web.
      */
-    public static function forRequest(ContainerInterface $container, ServerRequestInterface $request): WebApp
+    public static function forRequest(Container $container, ServerRequestInterface $request): WebApp
     {
         $path = $request->getUri()->getPath();
 
@@ -35,9 +35,9 @@ final class ApplicationFactory
             : self::web($container);
     }
 
-    public static function web(ContainerInterface $container): WebApp
+    public static function web(Container $container): WebApp
     {
-        $app = AppFactory::webAppFromContainer($container)
+        $app = AppFactory::web($container)
             ->withRouterConfigurators([
                 WebRoutes::class,
             ]);
@@ -49,18 +49,18 @@ final class ApplicationFactory
             : $app->withErrorHandler(WebErrorHandler::class);
     }
 
-    public static function api(ContainerInterface $container): WebApp
+    public static function api(Container $container): WebApp
     {
-        return AppFactory::webAppFromContainer($container)
+        return AppFactory::web($container)
             ->withRouterConfigurators([
                 ApiRoutes::class,
             ])
             ->withErrorHandler(JsonErrorHandler::class);
     }
 
-    public static function console(ContainerInterface $container): ConsoleApp
+    public static function console(Container $container): ConsoleApp
     {
-        return AppFactory::consoleAppFromContainer($container)
+        return AppFactory::console($container)
             ->withCommandConfigurators([
                 AppCommands::class,
             ]);
