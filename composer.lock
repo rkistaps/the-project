@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d0d32a8b6518407783f827cb20af801",
+    "content-hash": "d9d2a595bd4616a0ee332054781884f8",
     "packages": [
         {
             "name": "davedevelopment/phpmig",
@@ -1063,16 +1063,16 @@
         },
         {
             "name": "rkistaps/the-app",
-            "version": "v0.7.0",
+            "version": "v0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rkistaps/the-app.git",
-                "reference": "68694bcab6b887fa08c4e5a05f17a5f5e47eed51"
+                "reference": "dbe34ac6499b8dbe3571b41bc3155c8a1d20813f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/68694bcab6b887fa08c4e5a05f17a5f5e47eed51",
-                "reference": "68694bcab6b887fa08c4e5a05f17a5f5e47eed51",
+                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/dbe34ac6499b8dbe3571b41bc3155c8a1d20813f",
+                "reference": "dbe34ac6499b8dbe3571b41bc3155c8a1d20813f",
                 "shasum": ""
             },
             "require": {
@@ -1095,8 +1095,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "TheApp\\": "src/",
-                    "TheApp\\Tests\\": "tests/"
+                    "TheApp\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1112,9 +1111,9 @@
             "description": "PHP micro-framework that routes PSR-7 requests through PSR-15 middleware and runs console commands",
             "support": {
                 "issues": "https://github.com/rkistaps/the-app/issues",
-                "source": "https://github.com/rkistaps/the-app/tree/v0.7.0"
+                "source": "https://github.com/rkistaps/the-app/tree/v0.8.0"
             },
-            "time": "2026-10-01T15:15:00+00:00"
+            "time": "2026-10-01T16:12:55+00:00"
         },
         {
             "name": "symfony/config",

@@ -19,7 +19,7 @@ final class WebRoutes implements RouterConfiguratorInterface
     {
         // A request handler class that renders a template, with a middleware around it
         $router->get('/', HomeHandler::class, 'home')
-            ->withMiddleware(ResponseTimeMiddleware::class);
+            ->addMiddleware(ResponseTimeMiddleware::class);
 
         // A route parameter: [a:name] is alphanumeric, and reaches the handler as a request attribute
         $router->get('/hello/[a:name]', HelloHandler::class, 'hello');

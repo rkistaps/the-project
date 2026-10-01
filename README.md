@@ -80,11 +80,11 @@ Add a route to `src/Routes/WebRoutes.php`, pointing to a handler class:
 $router->get('/about', AboutHandler::class, 'about');
 ```
 
-The handler implements PSR-15 `RequestHandlerInterface`. It's built by the container, so constructor dependencies are injected. See `src/Handlers/HomeHandler.php`, which renders a template from `templates/`, and `HelloHandler`, which reads a route parameter. Middleware is added per route with `->withMiddleware(SomeMiddleware::class)`, like `ResponseTimeMiddleware` on `/`.
+The handler implements PSR-15 `RequestHandlerInterface`. It's built by the container, so constructor dependencies are injected. See `src/Handlers/HomeHandler.php`, which renders a template from `templates/`, and `HelloHandler`, which reads a route parameter. Middleware is added per route with `->addMiddleware(SomeMiddleware::class)`, like `ResponseTimeMiddleware` on `/`.
 
 ### Add an API endpoint
 
-Add a route to `src/Routes/ApiRoutes.php`. Paths there are under `/api`. Build responses with `JsonResponder`: `respond($data, $status)` and `error($status, $message)`. For a route that accepts a JSON body, add `->withMiddleware(JsonBodyMiddleware::class)` and read it with `$request->getParsedBody()`. See `src/Handlers/Api/`.
+Add a route to `src/Routes/ApiRoutes.php`. Paths there are under `/api`. Build responses with `JsonResponder`: `respond($data, $status)` and `error($status, $message)`. For a route that accepts a JSON body, add `->addMiddleware(JsonBodyMiddleware::class)` and read it with `$request->getParsedBody()`. See `src/Handlers/Api/`.
 
 ### Add a console command
 
@@ -95,7 +95,7 @@ $commandRunner->addCommand('greet', function (string $name, int $times = 1) { â€
 $commandRunner->addCommand('create-user', CreateUserCommand::class);
 ```
 
-An unknown command or invalid option exits with code 1.
+A command class returns its exit code from `handle()`, and a callable can return one too (anything else counts as 0). An unknown command or invalid option exits with code 1.
 
 ### Add a migration and a model
 

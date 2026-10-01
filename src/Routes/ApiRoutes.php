@@ -26,6 +26,6 @@ final class ApiRoutes implements RouterConfiguratorInterface
         $api->get('/users', ListUsersHandler::class, 'api.users.list');
         $api->get('/users/[i:id]', ShowUserHandler::class, 'api.users.show');
         $api->post('/users', CreateUserHandler::class, 'api.users.create')
-            ->withMiddleware(JsonBodyMiddleware::class);
+            ->addMiddleware(JsonBodyMiddleware::class);
     }
 }

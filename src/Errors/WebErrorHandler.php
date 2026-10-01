@@ -7,6 +7,7 @@ namespace TheProject\Errors;
 use League\Plates\Engine;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 use TheApp\Exceptions\MethodNotAllowedException;
 use TheApp\Exceptions\NoRouteMatchException;
@@ -31,7 +32,7 @@ final class WebErrorHandler implements ErrorHandlerInterface
         private LoggerInterface $logger,
     ) {}
 
-    public function handle(Throwable $throwable): ResponseInterface
+    public function handle(Throwable $throwable, ServerRequestInterface $request): ResponseInterface
     {
         // MethodNotAllowedException extends NoRouteMatchException, so it's checked first
         if ($throwable instanceof MethodNotAllowedException) {
