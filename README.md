@@ -95,7 +95,9 @@ $commandRunner->addCommand('greet', function (string $name, int $times = 1) { â€
 $commandRunner->addCommand('create-user', CreateUserCommand::class);
 ```
 
-A command class returns its exit code from `handle()`, and a callable can return one too (anything else counts as 0). An unknown command or invalid option exits with code 1.
+Commands write through the-app's `OutputInterface`: `writeln()` to standard output and `error()` to standard error. A callable gets it as a parameter, like `hello`, and a class in its constructor, like `CreateUserCommand`. A command class returns its exit code from `handle()`, and a callable can return one too (anything else counts as 0). An unknown command or invalid option exits with code 1, with the message on standard error, so it never lands in redirected output.
+
+Console tests read what a command wrote with `$this->consoleOutput()->getOutput()` and `getErrors()`, as in `tests/Integration/ConsoleAppTest.php`.
 
 ### Add a migration and a model
 
