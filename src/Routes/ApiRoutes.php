@@ -12,11 +12,19 @@ use TheProject\Handlers\Api\ShowUserHandler;
 use TheProject\Middlewares\JsonBodyMiddleware;
 
 /**
- * Routes of the JSON API, all under /api. Its errors are JSON too: see ApplicationFactory::api().
+ * Routes of the JSON API, all under /api. Its errors are JSON too: see Errors\ErrorHandler.
  */
 final class ApiRoutes implements RouterConfiguratorInterface
 {
     public const BASE_PATH = '/api';
+
+    /**
+     * Whether a request path is /api or under it, so its errors are answered in JSON
+     */
+    public static function isApiPath(string $path): bool
+    {
+        return $path === self::BASE_PATH || str_starts_with($path, self::BASE_PATH . '/');
+    }
 
     public function configureRouter(Router $router): void
     {

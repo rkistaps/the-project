@@ -19,13 +19,13 @@ if (Env::bool('APP_DEBUG')) {
         $whoops->register();
     }
 } else {
-    // The apps' error handlers render error pages; anything that still escapes them is logged, never shown
+    // The app's error handler renders error pages and JSON errors; anything that still escapes them is logged, never shown
     ini_set('display_errors', '0');
 }
 
 $container = ContainerFactory::build();
 
 $request = $container->get(ServerRequestInterface::class);
-$response = ApplicationFactory::forRequest($container, $request)->run($request);
+$response = ApplicationFactory::web($container)->run($request);
 
 $container->get(HttpResponseEmitter::class)->emit($response);

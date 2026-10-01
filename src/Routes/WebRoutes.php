@@ -11,7 +11,7 @@ use TheProject\Handlers\HomeHandler;
 use TheProject\Middlewares\ResponseTimeMiddleware;
 
 /**
- * Routes of the web app. Add a route here, or add another configurator to ApplicationFactory::web().
+ * Routes of the website. Add a route here, or add another configurator to ApplicationFactory::web().
  */
 final class WebRoutes implements RouterConfiguratorInterface
 {
