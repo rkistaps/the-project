@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "083368d6df101db50dc6d3bfd2537d4b",
+    "content-hash": "5d0d32a8b6518407783f827cb20af801",
     "packages": [
         {
             "name": "davedevelopment/phpmig",
@@ -1063,16 +1063,16 @@
         },
         {
             "name": "rkistaps/the-app",
-            "version": "v0.6.0",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rkistaps/the-app.git",
-                "reference": "2c82e48f64c346e100dbb51dcd00830433941386"
+                "reference": "68694bcab6b887fa08c4e5a05f17a5f5e47eed51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/2c82e48f64c346e100dbb51dcd00830433941386",
-                "reference": "2c82e48f64c346e100dbb51dcd00830433941386",
+                "url": "https://api.github.com/repos/rkistaps/the-app/zipball/68694bcab6b887fa08c4e5a05f17a5f5e47eed51",
+                "reference": "68694bcab6b887fa08c4e5a05f17a5f5e47eed51",
                 "shasum": ""
             },
             "require": {
@@ -1112,9 +1112,9 @@
             "description": "PHP micro-framework that routes PSR-7 requests through PSR-15 middleware and runs console commands",
             "support": {
                 "issues": "https://github.com/rkistaps/the-app/issues",
-                "source": "https://github.com/rkistaps/the-app/tree/v0.6.0"
+                "source": "https://github.com/rkistaps/the-app/tree/v0.7.0"
             },
-            "time": "2026-10-01T14:59:43+00:00"
+            "time": "2026-10-01T15:15:00+00:00"
         },
         {
             "name": "symfony/config",
