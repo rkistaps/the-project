@@ -134,27 +134,26 @@
         },
         {
             "name": "jawira/case-converter",
-            "version": "v3.4.6",
+            "version": "v3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jawira/case-converter.git",
-                "reference": "2f284c0760ee8085ab463f57275cf1f887fb78ae"
+                "reference": "de9956122568743a83e0fc7e2eaa92c1b0de3f18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jawira/case-converter/zipball/2f284c0760ee8085ab463f57275cf1f887fb78ae",
-                "reference": "2f284c0760ee8085ab463f57275cf1f887fb78ae",
+                "url": "https://api.github.com/repos/jawira/case-converter/zipball/de9956122568743a83e0fc7e2eaa92c1b0de3f18",
+                "reference": "de9956122568743a83e0fc7e2eaa92c1b0de3f18",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": "^7.1 || ^8.0"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "behat/behat": "^3.0",
-                "phpstan/phpstan": "^1.0",
-                "phpunit/phpunit": "^9.0",
-                "vimeo/psalm": "^4.0"
+                "phpstan/phpstan": "^v2",
+                "phpunit/phpunit": "^9.0"
             },
             "suggest": {
                 "pds/skeleton": "PHP Package Development Standards",
@@ -195,9 +194,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jawira/case-converter/issues",
-                "source": "https://github.com/jawira/case-converter/tree/v3.4.6"
+                "source": "https://github.com/jawira/case-converter/tree/v3.6.0"
             },
-            "time": "2021-11-21T19:52:51+00:00"
+            "time": "2025-06-13T21:12:55+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -3190,11 +3189,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.14",
+            "version": "2.2.16",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9c672e7a8e791dfc3d30e55f683e73fc0b63a3ac",
-                "reference": "9c672e7a8e791dfc3d30e55f683e73fc0b63a3ac",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/46a6d9060e5a7763adfcc21ebcb8b504ebdbcb92",
+                "reference": "46a6d9060e5a7763adfcc21ebcb8b504ebdbcb92",
                 "shasum": ""
             },
             "require": {
@@ -3250,7 +3249,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-12T21:39:33+00:00"
+            "time": "2026-09-25T09:31:51+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
