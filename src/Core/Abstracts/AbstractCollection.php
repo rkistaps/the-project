@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace TheProject\Core\Abstracts;
 
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 abstract class AbstractCollection
 {
+    /** @var Collection<array-key, mixed> */
     protected Collection $collection;
 
     // Final, so methods can safely return `new static(...)`
@@ -16,6 +17,9 @@ abstract class AbstractCollection
         $this->collection = collect($data);
     }
 
+    /**
+     * @return Collection<array-key, mixed>
+     */
     public function getCollection(): Collection
     {
         return $this->collection;
@@ -79,6 +83,9 @@ abstract class AbstractCollection
         return $this;
     }
 
+    /**
+     * @return Collection<array-key, mixed>
+     */
     public function pluck(string $value, ?string $key = null): Collection
     {
         return $this->collection->pluck($value, $key);
