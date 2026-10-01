@@ -15,8 +15,8 @@ use TheApp\Interfaces\ErrorHandlerInterface;
 use Throwable;
 
 /**
- * Turns uncaught exceptions in the web app into error pages (templates/error.php). Used when
- * APP_DEBUG is off; with it on, exceptions reach the Whoops debug page instead.
+ * Turns uncaught exceptions on website paths into error pages (templates/error.php). ErrorHandler uses
+ * it when APP_DEBUG is off; with it on, those exceptions reach the Whoops debug page instead.
  */
 final class WebErrorHandler implements ErrorHandlerInterface
 {

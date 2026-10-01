@@ -1,19 +1,19 @@
 # TheProject - Project Context
 
 ## Project Overview
-PHP 8.4 project with three apps on the [the-app](https://github.com/rkistaps/the-app) micro-framework (PSR-7/PSR-15, PHP-DI): a website, a JSON API under `/api`, and console commands. It runs in Docker: PHP 8.4 + Apache in the `app` container, MySQL 8.4 in `db`. Started from the TheProject template; the README explains every part for people, this file is the short version for agents.
+PHP 8.4 project with two apps on the [the-app](https://github.com/rkistaps/the-app) micro-framework (PSR-7/PSR-15, PHP-DI): a web app that serves a website and a JSON API under `/api`, and console commands. It runs in Docker: PHP 8.4 + Apache in the `app` container, MySQL 8.4 in `db`. Started from the TheProject template; the README explains every part for people, this file is the short version for agents.
 
 ## Layout
-- `public/index.php`: front controller. `ApplicationFactory::forRequest()` picks the API app for `/api` paths, the web app otherwise
+- `public/index.php`: front controller. Runs the web app from `ApplicationFactory::web()`, which serves both the website and the API
 - `console.php` / `run`: console entry point (`./run <command>`)
 - `bootstrap.php`: shared start of every entry point: `APP_ROOT`, autoloader, `.env`
 - `config/config.php`: settings, all read from the environment with `Env::get()`/`Env::bool()`. `config/dependencies.php`: container definitions (PHP-DI autowires the rest)
 - `src/` (namespace `TheProject\`):
-  - `Core/Factories/ApplicationFactory.php`: builds the web, API and console apps with their routes, commands and error handlers. The entry points and the tests both use it
+  - `Core/Factories/ApplicationFactory.php`: builds the web and console apps with their routes, commands and error handler. The entry points and the tests both use it
   - `Routes/WebRoutes.php`, `Routes/ApiRoutes.php`: route configurators
   - `Console/AppCommands.php`: command configurator; `Console/*Command.php`: command handler classes
   - `Handlers/`: PSR-15 request handlers (`Handlers/Api/` for the API)
-  - `Middlewares/`, `Errors/` (`WebErrorHandler`, `JsonErrorHandler`), `Http/JsonResponder.php`
+  - `Middlewares/`, `Errors/` (`ErrorHandler` answers by path: `JsonErrorHandler` for `/api`, `WebErrorHandler` pages otherwise, Whoops with `APP_DEBUG` on), `Http/JsonResponder.php`
   - `Core/Models`, `Core/Repositories`, `Core/Collections`: models are plain typed data; repositories load and save them through the hydrator
 - `templates/`: Plates templates. `migrations/`: phpmig migrations (`migrations/.template` is what `phpmig generate` writes)
 - `tests/`: `Core/` unit tests mirror `src/`; `Integration/` runs the real apps; `Support/` has the base classes

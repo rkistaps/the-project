@@ -19,6 +19,25 @@ final class ApiTest extends ApiTestCase
         self::assertSame(['error' => ['status' => 404, 'message' => 'Not found']], $this->decode($response));
     }
 
+    public function testWithDebugOnErrorsStayJson(): void
+    {
+        // Website errors go to Whoops with APP_DEBUG on, but the API keeps answering in JSON
+        $this->withDebug();
+
+        $response = $this->json('GET', '/api/nope');
+
+        self::assertSame(404, $response->getStatusCode());
+        self::assertSame('Not found', $this->decode($response)['error']['message']);
+    }
+
+    public function testPathThatOnlyStartsWithApiIsAWebPage(): void
+    {
+        $response = $this->get('/apiary');
+
+        self::assertSame(404, $response->getStatusCode());
+        self::assertStringContainsString('Page not found', (string) $response->getBody());
+    }
+
     public function testWrongMethodIs405WithAllowHeader(): void
     {
         $response = $this->json('DELETE', '/api/users');

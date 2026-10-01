@@ -11,7 +11,7 @@ use TheProject\Core\Factories\ApplicationFactory;
 
 /**
  * Base for tests that send requests through the app, built the same way as public/index.php:
- * ApplicationFactory::forRequest() picks the web app or the API by path.
+ * ApplicationFactory::web(), which serves both the website and the API.
  */
 abstract class WebTestCase extends AppTestCase
 {
@@ -53,6 +53,6 @@ abstract class WebTestCase extends AppTestCase
 
     protected function send(ServerRequestInterface $request): ResponseInterface
     {
-        return ApplicationFactory::forRequest($this->container(), $request)->run($request);
+        return ApplicationFactory::web($this->container())->run($request);
     }
 }

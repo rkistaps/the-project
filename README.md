@@ -68,7 +68,7 @@ bootstrap.php      Shared start of every entry point: autoloader and .env
 console.php, run   Console entry point: ./run <command> runs php console.php <command>
 ```
 
-`ApplicationFactory` (`src/Core/Factories/`) builds the apps with their routes, commands and error handlers. The entry points and the tests both use it.
+`ApplicationFactory` (`src/Core/Factories/`) builds the apps with their routes, commands and error handler. The entry points and the tests both use it. One web app serves both the website and the API. Its error handler, `src/Errors/ErrorHandler.php`, answers by the request's path: JSON errors under `/api`, error pages elsewhere. With `APP_DEBUG` on, website errors show the Whoops debug page instead, while the API keeps answering in JSON.
 
 ## How to
 
