@@ -40,7 +40,7 @@ Everything runs in the container; the host needs no PHP.
 - One route per line in the route configurators; handlers are classes unless a callable is trivially short
 - Handlers and commands stay thin: parse input, call one service or repository, build the response
 - Settings come from the environment: add the variable to `.env.example` and read it in `config/config.php`, never with `getenv()` elsewhere
-- Log through `Psr\Log\LoggerInterface`, never `error_log()` in app code. `echo` is only for a console command's own output
+- Log through `Psr\Log\LoggerInterface`, never `error_log()` in app code. Console commands write through `TheApp\Interfaces\OutputInterface` (constructor or callable parameter): `writeln()` for output, `error()` for standard error; no `echo` in app code
 - API responses go through `JsonResponder`, so every error has the shape `{"error": {"status", "message", ...}}`
 - API output lists fields explicitly (see `Handlers/Api/UserJson.php`), so a new column isn't exposed by accident
 - Database columns are `snake_case`, model properties `camelCase`; the hydrator maps and casts them
@@ -48,7 +48,7 @@ Everything runs in the container; the host needs no PHP.
 
 ## Tests
 - Unit tests extend `TestCase` and build what they test by hand, no container
-- `WebTestCase` (`get()`, `post()`), `ApiTestCase` (`json()`, `decode()`) and `AppTestCase` (`container()`, `loggedMessages()`, `withDebug()`) run the real app as `ApplicationFactory` builds it. `APP_DEBUG` is off in tests unless `withDebug()` is called
+- `WebTestCase` (`get()`, `post()`), `ApiTestCase` (`json()`, `decode()`) and `AppTestCase` (`container()`, `loggedMessages()`, `consoleOutput()`, `withDebug()`) run the real app as `ApplicationFactory` builds it. `APP_DEBUG` is off in tests unless `withDebug()` is called
 - Database tests add `use UsesDatabase;`: they use the `_test` database from `.env.testing`, migrations run once, and each test is rolled back. Never point tests at the development database
 - Test real behaviour through the app over mocking framework classes
 

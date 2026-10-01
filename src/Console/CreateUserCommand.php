@@ -6,6 +6,7 @@ namespace TheProject\Console;
 
 use TheApp\Exceptions\InvalidCommandInputException;
 use TheApp\Interfaces\CommandHandlerInterface;
+use TheApp\Interfaces\OutputInterface;
 use TheProject\Core\Repositories\UserRepository;
 
 /**
@@ -16,13 +17,16 @@ use TheProject\Core\Repositories\UserRepository;
  */
 final class CreateUserCommand implements CommandHandlerInterface
 {
-    public function __construct(private UserRepository $users) {}
+    public function __construct(
+        private UserRepository $users,
+        private OutputInterface $output,
+    ) {}
 
     public function handle(array $params = []): int
     {
         foreach (['username', 'email'] as $option) {
             if (!is_string($params[$option] ?? null) || $params[$option] === '') {
-                // The console app prints the message and exits with 1
+                // The console app writes the message to standard error and exits with 1
                 throw new InvalidCommandInputException('Missing required option --' . $option);
             }
         }
@@ -32,7 +36,7 @@ final class CreateUserCommand implements CommandHandlerInterface
             'email' => $params['email'],
         ], true);
 
-        echo sprintf('Created user #%d %s', $user->id, $params['username']) . PHP_EOL;
+        $this->output->writeln(sprintf('Created user #%d %s', $user->id, $params['username']));
 
         return 0;
     }
