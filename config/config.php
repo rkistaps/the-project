@@ -14,4 +14,8 @@ return [
         'username' => Env::get('DB_USER', ''),
         'password' => Env::get('DB_PASSWORD', ''),
     ],
+    'session' => [
+        // Seconds without a request after which a website session ends
+        'lifetime' => (int) Env::get('SESSION_LIFETIME', '7200'),
+    ],
 ];

@@ -17,6 +17,7 @@ use TheProject\Core\Interfaces\ModelDataHydratorInterface;
 use TheProject\Core\Logging\ErrorLogLogger;
 use TheProject\Core\Services\ModelDataHydratorService;
 use TheProject\Core\Structures\DatabaseConfig;
+use TheProject\Session\SessionStore;
 
 return [
     ConfigInterface::class => fn(ConfigFactory $configFactory) => $configFactory->fromArray(require APP_ROOT . '/config/config.php'),
@@ -28,4 +29,5 @@ return [
     Database::class => fn(DatabaseFactory $factory, DatabaseConfig $config) => $factory->buildFromConfig($config),
     LoggerInterface::class => fn(ErrorLogLogger $logger) => $logger,
     ModelDataHydratorInterface::class => fn(ContainerInterface $container) => $container->get(ModelDataHydratorService::class),
+    SessionStore::class => fn(Database $database, ConfigInterface $config) => new SessionStore($database, (int) $config->get('session.lifetime', 7200)),
 ];

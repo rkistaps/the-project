@@ -13,7 +13,8 @@ PHP 8.4 project with two apps on the [the-app](https://github.com/rkistaps/the-a
   - `Routes/WebRoutes.php`, `Routes/ApiRoutes.php`: route configurators
   - `Console/AppCommands.php`: command configurator; `Console/*Command.php`: command handler classes
   - `Handlers/`: PSR-15 request handlers (`Handlers/Api/` for the API)
-  - `Middlewares/`, `Errors/` (`ErrorHandler` answers by path: `JsonErrorHandler` for `/api`, `WebErrorHandler` pages otherwise, Whoops with `APP_DEBUG` on), `Http/JsonResponder.php`
+  - `Middlewares/`, `Errors/` (`ErrorHandler` answers by path: `JsonErrorHandler` for `/api`, `WebErrorHandler` pages otherwise, Whoops with `APP_DEBUG` on), `Http/JsonResponder.php`, `Http/HtmlResponder.php`
+  - `Auth/` (`AuthService`, `PasswordHasher`) and `Session/` (`Session`, `SessionStore`, `CsrfToken`): the website login. `SessionMiddleware`, `AuthMiddleware` and `CsrfMiddleware` run on every website request (not `/api`) before routing; every page but `/login` needs a signed-in user
   - `Core/Models`, `Core/Repositories`, `Core/Collections`: models are plain typed data; repositories load and save them through the hydrator
 - `templates/`: Plates templates. `migrations/`: phpmig migrations (`migrations/.template` is what `phpmig generate` writes)
 - `tests/`: `Core/` unit tests mirror `src/`; `Integration/` runs the real apps; `Support/` has the base classes
@@ -42,13 +43,15 @@ Everything runs in the container; the host needs no PHP.
 - Settings come from the environment: add the variable to `.env.example` and read it in `config/config.php`, never with `getenv()` elsewhere
 - Log through `Psr\Log\LoggerInterface`, never `error_log()` in app code. Console commands write through `TheApp\Interfaces\OutputInterface` (constructor or callable parameter): `writeln()` for output, `error()` for standard error; no `echo` in app code
 - API responses go through `JsonResponder`, so every error has the shape `{"error": {"status", "message", ...}}`
+- Website handlers respond through `HtmlResponder`, not `ResponseBuilder`: the container shares one instance of each, and `ResponseBuilder` keeps its response between requests. A handler reads the signed-in user from the `User::class` request attribute and the session with `Session::fromRequest()`; every form posts the `CsrfToken::FIELD` hidden field
+- Passwords are stored only as `password_hash()` hashes (`PasswordHasher`), and never leave the model: not in API output, logs or templates
 - API output lists fields explicitly (see `Handlers/Api/UserJson.php`), so a new column isn't exposed by accident
 - Database columns are `snake_case`, model properties `camelCase`; the hydrator maps and casts them
 - Schema changes are migrations (`./docker-run vendor/bin/phpmig generate <Name>`), with a working `down()`
 
 ## Tests
 - Unit tests extend `TestCase` and build what they test by hand, no container
-- `WebTestCase` (`get()`, `post()`), `ApiTestCase` (`json()`, `decode()`) and `AppTestCase` (`container()`, `loggedMessages()`, `consoleOutput()`, `withDebug()`) run the real app as `ApplicationFactory` builds it. `APP_DEBUG` is off in tests unless `withDebug()` is called
+- `WebTestCase` (`get()`, `post()`, and with `UsesDatabase`: `signIn()`, `createUser()`, `csrfToken()`; it keeps cookies like a browser), `ApiTestCase` (`json()`, `decode()`) and `AppTestCase` (`container()`, `loggedMessages()`, `consoleOutput()`, `withDebug()`) run the real app as `ApplicationFactory` builds it. `APP_DEBUG` is off in tests unless `withDebug()` is called, which must come before the container is built, so not in a `UsesDatabase` test
 - Database tests add `use UsesDatabase;`: they use the `_test` database from `.env.testing`, migrations run once, and each test is rolled back. Never point tests at the development database
 - Test real behaviour through the app over mocking framework classes
 

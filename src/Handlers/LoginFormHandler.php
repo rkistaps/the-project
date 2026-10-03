@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace TheProject\Handlers;
 
-use LogicException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use TheProject\Core\Models\User;
 use TheProject\Http\HtmlResponder;
 use TheProject\Session\CsrfToken;
 use TheProject\Session\Session;
 
 /**
- * GET /: the dashboard, where users land after signing in. AuthMiddleware has put the signed-in user
- * on the request; the CSRF token is for the logout form.
+ * GET /login: the login form. AuthMiddleware sends signed-in users to the dashboard instead.
  */
-final class HomeHandler implements RequestHandlerInterface
+final class LoginFormHandler implements RequestHandlerInterface
 {
     public function __construct(
         private HtmlResponder $html,
@@ -26,14 +23,10 @@ final class HomeHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $user = $request->getAttribute(User::class);
-        if (!$user instanceof User) {
-            throw new LogicException('The dashboard needs a signed-in user: is AuthMiddleware in front of it?');
-        }
-
-        return $this->html->render('home', [
-            'user' => $user,
+        return $this->html->render('login', [
             'csrfToken' => $this->csrf->get(Session::fromRequest($request)),
+            'username' => '',
+            'error' => null,
         ]);
     }
 }

@@ -55,7 +55,8 @@ final class UserCollectionTest extends TestCase
         $user = new User();
         $user->id = $id;
         $user->username = $username;
-        $user->email = $username . '@example.com';
+        $user->name = ucfirst($username);
+        $user->surname = 'Ozola';
 
         return $user;
     }
