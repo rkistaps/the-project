@@ -15,12 +15,14 @@ use TheApp\Interfaces\ErrorHandlerInterface;
 use Throwable;
 
 /**
- * Turns uncaught exceptions on website paths into error pages (templates/error.php). ErrorHandler uses
+ * Turns uncaught exceptions on website paths into error pages (templates/error.php): 403 for a form without
+ * a valid CSRF token, 404 and 405 for requests no route takes, 500 for the rest. ErrorHandler uses
  * it when APP_DEBUG is off; with it on, those exceptions reach the Whoops debug page instead.
  */
 final class WebErrorHandler implements ErrorHandlerInterface
 {
     private const PAGES = [
+        403 => ['This form has expired', 'Go back, reload the page and try again.'],
         404 => ['Page not found', "The page you're looking for doesn't exist."],
         405 => ['Method not allowed', "This page can't be requested that way."],
         500 => ['Something went wrong', "We couldn't show this page. Please try again later."],
@@ -41,6 +43,10 @@ final class WebErrorHandler implements ErrorHandlerInterface
 
         if ($throwable instanceof NoRouteMatchException) {
             return $this->page(404);
+        }
+
+        if ($throwable instanceof CsrfTokenMismatchException) {
+            return $this->page(403);
         }
 
         $this->logger->error('Uncaught exception in the web app: ' . $throwable->getMessage(), ['exception' => $throwable]);

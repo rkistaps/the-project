@@ -32,10 +32,11 @@ final class ApiTest extends ApiTestCase
 
     public function testPathThatOnlyStartsWithApiIsAWebPage(): void
     {
+        // So it's for signed-in users only, like every website page
         $response = $this->get('/apiary');
 
-        self::assertSame(404, $response->getStatusCode());
-        self::assertStringContainsString('Page not found', (string) $response->getBody());
+        self::assertSame(302, $response->getStatusCode());
+        self::assertSame('/login', $response->getHeaderLine('Location'));
     }
 
     public function testWrongMethodIs405WithAllowHeader(): void
@@ -64,9 +65,9 @@ final class ApiTest extends ApiTestCase
 
     public function testInvalidFieldsAre422(): void
     {
-        $response = $this->json('POST', '/api/users', ['username' => 'a', 'email' => 'not-an-email']);
+        $response = $this->json('POST', '/api/users', ['username' => 'a', 'name' => '', 'surname' => str_repeat('x', 101)]);
 
         self::assertSame(422, $response->getStatusCode());
-        self::assertSame(['username', 'email'], array_keys($this->decode($response)['error']['fields']));
+        self::assertSame(['username', 'name', 'surname'], array_keys($this->decode($response)['error']['fields']));
     }
 }

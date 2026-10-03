@@ -8,19 +8,20 @@ use TheProject\Core\Models\User;
 
 /**
  * How a user looks in the API. The fields are listed one by one, so a column added to the
- * model isn't exposed until it's added here too.
+ * model, like the password hash, isn't exposed until it's added here too.
  */
 final class UserJson
 {
     /**
-     * @return array{id: int, username: string, email: string}
+     * @return array{id: int, username: string, name: string, surname: string}
      */
     public static function from(User $user): array
     {
         return [
             'id' => $user->id,
             'username' => $user->username,
-            'email' => $user->email,
+            'name' => $user->name,
+            'surname' => $user->surname,
         ];
     }
 }

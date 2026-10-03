@@ -29,21 +29,23 @@ final class UserRepositoryTest extends AppTestCase
 
     public function testSavedUserGetsAnIdAndCanBeFound(): void
     {
-        $user = $this->users()->createModel(['username' => 'anna', 'email' => 'anna@example.com'], true);
+        $user = $this->users()->createModel(['username' => 'anna', 'name' => 'Anna', 'surname' => 'Ozola'], true);
 
         self::assertGreaterThan(0, $user->id);
 
         $found = $this->users()->findById($user->id);
         self::assertInstanceOf(User::class, $found);
         self::assertSame('anna', $found->username);
-        self::assertSame('anna@example.com', $found->email);
+        self::assertSame('Anna', $found->name);
+        self::assertSame('Ozola', $found->surname);
+        self::assertNull($found->passwordHash);
         self::assertSame($user->id, $this->users()->findByUsername('anna')?->id);
     }
 
     public function testFindAllReturnsTypedCollection(): void
     {
-        $this->users()->createModel(['username' => 'anna', 'email' => 'anna@example.com'], true);
-        $this->users()->createModel(['username' => 'juris', 'email' => 'juris@example.com'], true);
+        $this->users()->createModel(['username' => 'anna', 'name' => 'Anna', 'surname' => 'Ozola'], true);
+        $this->users()->createModel(['username' => 'juris', 'name' => 'Juris', 'surname' => 'Bērziņš'], true);
 
         $users = $this->users()->findAll();
 
@@ -54,20 +56,20 @@ final class UserRepositoryTest extends AppTestCase
 
     public function testUpdatesOnlyTheGivenProperties(): void
     {
-        $user = $this->users()->createModel(['username' => 'anna', 'email' => 'anna@example.com'], true);
+        $user = $this->users()->createModel(['username' => 'anna', 'name' => 'Anna', 'surname' => 'Ozola'], true);
 
         $user->username = 'anna2';
-        $user->email = 'changed@example.com';
-        $this->users()->saveModel($user, ['email']);
+        $user->surname = 'Changed';
+        $this->users()->saveModel($user, ['surname']);
 
         $found = $this->users()->findById($user->id);
         self::assertSame('anna', $found?->username);
-        self::assertSame('changed@example.com', $found?->email);
+        self::assertSame('Changed', $found?->surname);
     }
 
     public function testDeletesUser(): void
     {
-        $user = $this->users()->createModel(['username' => 'anna', 'email' => 'anna@example.com'], true);
+        $user = $this->users()->createModel(['username' => 'anna', 'name' => 'Anna', 'surname' => 'Ozola'], true);
 
         self::assertSame(1, $this->users()->deleteModel($user));
         self::assertNull($this->users()->findById($user->id));

@@ -23,7 +23,7 @@ final class AppCommands implements CommandConfiguratorInterface
         });
 
         // A command handler class, resolved from the container with its dependencies.
-        // ./run create-user --username=juris --email=juris@example.com
+        // ./run create-user --username=juris --password=secret --name=Juris --surname=Bērziņš
         $commandRunner->addCommand('create-user', CreateUserCommand::class);
     }
 }
